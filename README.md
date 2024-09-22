@@ -41,7 +41,7 @@ If you don't already have access, ask for permissions to be added to the Firebas
 
 ## Contributing
 
-### Please ensure all contributions align with the project structure and follow common GitHub etiquette:
+#### Please ensure all contributions align with the project structure and follow common GitHub etiquette:
 
 1. Fork the repository.
 2. Create a new branch `git checkout -b feature/your-feature-name`.
