@@ -1,0 +1,40 @@
+# Ignore Xcode specific files
+*.xcworkspace
+xcuserdata/
+DerivedData/
+*.xcuserstate
+
+# Ignore build products
+build/
+*.app
+*.ipa
+*.dSYM
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Firebase configuration files
+GoogleService-Info.plist
+
+# Ignore Swift Package Manager files
+.build/
+Package.resolved
+
+# Ignore Carthage build products
+Carthage/Build/
+
+# Ignore temporary files
+*.swp
+*.lock
+*~
+
+# Ignore .DS_Store (common macOS file)
+.DS_Store
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+
+# Ignore environment files (if using .env for secrets)
+.env
