@@ -5,8 +5,6 @@
 //  Created by Ethan Donley on 9/20/24.
 //
 
-import Foundation
-
 import UIKit
 
 class HomeViewController: UIViewController {

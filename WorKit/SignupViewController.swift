@@ -18,6 +18,7 @@ class SignupViewController: UIViewController {
     let passwordTextField = UITextField()
     let confirmPasswordTextField = UITextField()
     let signupButton = UIButton()
+    var activityIndicator = UIActivityIndicatorView(style: .large)  // Activity indicator for loading state
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +78,11 @@ class SignupViewController: UIViewController {
         signupButton.addTarget(self, action: #selector(handleSignup), for: .touchUpInside)
         signupButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(signupButton)
+        
+        // Configure Activity Indicator
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.hidesWhenStopped = true
+        view.addSubview(activityIndicator)
 
         // Set up Constraints
         NSLayoutConstraint.activate([
@@ -107,66 +113,98 @@ class SignupViewController: UIViewController {
             signupButton.topAnchor.constraint(equalTo: confirmPasswordTextField.bottomAnchor, constant: 20),
             signupButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             signupButton.widthAnchor.constraint(equalToConstant: 100),
-            signupButton.heightAnchor.constraint(equalToConstant: 50)
+            signupButton.heightAnchor.constraint(equalToConstant: 50),
+
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.topAnchor.constraint(equalTo: signupButton.bottomAnchor, constant: 20)
         ])
     }
 
     @objc func handleSignup() {
-        guard let firstName = firstNameTextField.text, !firstName.isEmpty,
-              let lastName = lastNameTextField.text, !lastName.isEmpty,
-              let email = emailTextField.text, isValidEmail(email),
-              let phoneNumber = phoneNumberTextField.text, isValidPhoneNumber(phoneNumber),
-              let password = passwordTextField.text, isValidPassword(password),
-              let confirmPassword = confirmPasswordTextField.text, confirmPassword == password else {
-            showError(message: "Please enter all fields correctly and confirm your password.")
+        // Validations with specific error messages
+        if firstNameTextField.text?.isEmpty ?? true {
+            showError(message: "Please enter your first name.")
             return
         }
 
+        if lastNameTextField.text?.isEmpty ?? true {
+            showError(message: "Please enter your last name.")
+            return
+        }
+
+        guard let email = emailTextField.text, isValidEmail(email) else {
+            showError(message: "Please enter a valid email.")
+            return
+        }
+
+        guard let phoneNumber = phoneNumberTextField.text, isValidPhoneNumber(phoneNumber) else {
+            showError(message: "Please enter a valid phone number.")
+            return
+        }
+
+        guard let password = passwordTextField.text, isValidPassword(password) else {
+            showError(message: "Password must be at least 6 characters long.")
+            return
+        }
+
+        guard let confirmPassword = confirmPasswordTextField.text, confirmPassword == password else {
+            showError(message: "Passwords do not match.")
+            return
+        }
+
+        // Start loading
+        activityIndicator.startAnimating()
+
         // Firebase Auth - Create User with Email and Password
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            self.activityIndicator.stopAnimating()  // Stop loading
+
             if let error = error {
                 self.showError(message: error.localizedDescription)
                 return
             }
 
-            // Add First Name, Last Name, and Phone Number to the User Profile or Firestore
-            let changeRequest = authResult?.user.createProfileChangeRequest()
-            changeRequest?.displayName = "\(firstName) \(lastName)"
-            changeRequest?.commitChanges { error in
+            // Send email verification
+            authResult?.user.sendEmailVerification(completion: { error in
                 if let error = error {
-                    self.showError(message: error.localizedDescription)
+                    self.showError(message: "Email verification failed: \(error.localizedDescription)")
                     return
                 }
 
-                // Store phone number in Firestore (Optional)
-                let db = Firestore.firestore()
-                db.collection("users").document(authResult!.user.uid).setData([
-                    "firstName": firstName,
-                    "lastName": lastName,
-                    "email": email,
-                    "phoneNumber": phoneNumber
-                ]) { error in
-                    if let error = error {
-                        self.showError(message: "Failed to store user data: \(error.localizedDescription)")
-                        return
-                    }
+                // Show success popup and inform user to check their email
+                self.showSuccess(message: "Verification email sent! Please check your inbox.")
 
-                    // Send email verification
-                    authResult?.user.sendEmailVerification(completion: { error in
+                // Wait for email verification
+                self.checkEmailVerification(authResult?.user)
+            })
+        }
+    }
+
+    func checkEmailVerification(_ user: User?) {
+        guard let user = user else { return }
+
+        // Continuously check whether the email has been verified
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { timer in
+            user.reload { (error) in
+                if let error = error {
+                    print("Error checking email verification status: \(error.localizedDescription)")
+                } else if user.isEmailVerified {
+                    timer.invalidate()  // Stop checking
+
+                    // Add user data to Firestore only if the email is verified
+                    let db = Firestore.firestore()
+                    db.collection("users").document(user.uid).setData([
+                        "firstName": self.firstNameTextField.text!,
+                        "lastName": self.lastNameTextField.text!,
+                        "email": self.emailTextField.text!,
+                        "phoneNumber": self.phoneNumberTextField.text!
+                    ]) { error in
                         if let error = error {
-                            self.showError(message: "Email verification failed: \(error.localizedDescription)")
-                            return
+                            self.showError(message: "Failed to store user data: \(error.localizedDescription)")
+                        } else {
+                            self.showSuccess(message: "Your account is now verified and active!")
                         }
-
-                        // Inform the user that a verification email was sent
-                        self.showSuccess(message: "Verification email sent! Please check your inbox.")
-
-                        // Dismiss the sign-up view and navigate to home (optional)
-                        let homeVC = HomeViewController()
-                        let navController = UINavigationController(rootViewController: homeVC)
-                        navController.modalPresentationStyle = .fullScreen
-                        self.present(navController, animated: true, completion: nil)
-                    })
+                    }
                 }
             }
         }
@@ -179,9 +217,11 @@ class SignupViewController: UIViewController {
         return emailPred.evaluate(with: email)
     }
 
-    // Basic phone number validation (simple check for length)
+    // More robust phone number validation (basic check for length and country code formatting)
     func isValidPhoneNumber(_ phone: String) -> Bool {
-        return phone.count >= 10 // You can add a more robust validation
+        let phoneRegEx = "^\\+?[0-9]{10,15}$"  // Accepts optional "+" sign and 10-15 digits
+        let phonePred = NSPredicate(format: "SELF MATCHES %@", phoneRegEx)
+        return phonePred.evaluate(with: phone)
     }
 
     // Basic password validation (minimum 6 characters)
@@ -201,11 +241,3 @@ class SignupViewController: UIViewController {
         present(alert, animated: true)
     }
 }
-
-
-
-
-
-
-
-

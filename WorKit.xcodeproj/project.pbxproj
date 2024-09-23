@@ -21,6 +21,10 @@
 		ACD9153F2C9E0D9B00B66661 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD9153E2C9E0D9B00B66661 /* SignupViewController.swift */; };
 		ACD915442C9F3B0300B66661 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACD915432C9F3B0300B66661 /* GoogleService-Info.plist */; };
 		ACD915452C9F3BD800B66661 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACD915022C9DEA1E00B66661 /* Main.storyboard */; };
+		ACD915482CA0C8E100B66661 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD915472CA0C8E100B66661 /* opencv2.framework */; };
+		ACD9154E2CA0C92000B66661 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD9154D2CA0C92000B66661 /* AssetsLibrary.framework */; };
+		ACD915542CA0C9CC00B66661 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = ACD915532CA0C9CC00B66661 /* OpenCVWrapper.mm */; };
+		ACD915572CA0E83C00B66661 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD915562CA0E83C00B66661 /* MainTabBarController.swift */; };
 		D02BEA0A4DB179736D32859F /* Pods_WorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4607BE9CB616082719F70A9 /* Pods_WorKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +67,15 @@
 		ACD9153E2C9E0D9B00B66661 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		ACD915432C9F3B0300B66661 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ACD915462C9F48FC00B66661 /* WorKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WorKit.entitlements; sourceTree = "<group>"; };
+		ACD915472CA0C8E100B66661 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		ACD915492CA0C90F00B66661 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		ACD9154B2CA0C91A00B66661 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		ACD9154D2CA0C92000B66661 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		ACD9154F2CA0C99800B66661 /* WorKit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WorKit-Bridging-Header.h"; sourceTree = "<group>"; };
+		ACD915502CA0C99A00B66661 /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
+		ACD915532CA0C9CC00B66661 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
+		ACD915552CA0CA8000B66661 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		ACD915562CA0E83C00B66661 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		BF62DFB1F5A9330F7B63F738 /* Pods-WorKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorKit.debug.xcconfig"; path = "Target Support Files/Pods-WorKit/Pods-WorKit.debug.xcconfig"; sourceTree = "<group>"; };
 		D4607BE9CB616082719F70A9 /* Pods_WorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA3FF84694F92021E8735DA3 /* Pods-WorKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorKit.release.xcconfig"; path = "Target Support Files/Pods-WorKit/Pods-WorKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -73,6 +86,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACD9154E2CA0C92000B66661 /* AssetsLibrary.framework in Frameworks */,
+				ACD915482CA0C8E100B66661 /* opencv2.framework in Frameworks */,
 				D02BEA0A4DB179736D32859F /* Pods_WorKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,13 +121,18 @@
 		ACD914F02C9DEA1E00B66661 = {
 			isa = PBXGroup;
 			children = (
+				ACD915552CA0CA8000B66661 /* PrefixHeader.pch */,
+				ACD915502CA0C99A00B66661 /* OpenCVWrapper.h */,
+				ACD915532CA0C9CC00B66661 /* OpenCVWrapper.mm */,
 				ACD915432C9F3B0300B66661 /* GoogleService-Info.plist */,
+				ACD915472CA0C8E100B66661 /* opencv2.framework */,
 				ACD914FB2C9DEA1E00B66661 /* WorKit */,
 				ACD915122C9DEA2000B66661 /* WorKitTests */,
 				ACD9151C2C9DEA2000B66661 /* WorKitUITests */,
 				ACD914FA2C9DEA1E00B66661 /* Products */,
 				7DE6B16FE9305A457B0F1E8A /* Pods */,
 				C65641D3415A430160E26F7D /* Frameworks */,
+				ACD9154F2CA0C99800B66661 /* WorKit-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,6 +163,7 @@
 				ACD915322C9DF37800B66661 /* HomeViewController.swift */,
 				ACD915342C9DF43500B66661 /* LoginViewController.swift */,
 				ACD9153E2C9E0D9B00B66661 /* SignupViewController.swift */,
+				ACD915562CA0E83C00B66661 /* MainTabBarController.swift */,
 			);
 			path = WorKit;
 			sourceTree = "<group>";
@@ -167,6 +188,9 @@
 		C65641D3415A430160E26F7D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ACD9154D2CA0C92000B66661 /* AssetsLibrary.framework */,
+				ACD9154B2CA0C91A00B66661 /* CoreMedia.framework */,
+				ACD915492CA0C90F00B66661 /* CoreGraphics.framework */,
 				D4607BE9CB616082719F70A9 /* Pods_WorKit.framework */,
 			);
 			name = Frameworks;
@@ -242,6 +266,7 @@
 				TargetAttributes = {
 					ACD914F82C9DEA1E00B66661 = {
 						CreatedOnToolsVersion = 15.2;
+						LastSwiftMigration = 1520;
 					};
 					ACD9150E2C9DEA2000B66661 = {
 						CreatedOnToolsVersion = 15.2;
@@ -349,7 +374,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACD915542CA0C9CC00B66661 /* OpenCVWrapper.mm in Sources */,
 				ACD9153F2C9E0D9B00B66661 /* SignupViewController.swift in Sources */,
+				ACD915572CA0E83C00B66661 /* MainTabBarController.swift in Sources */,
 				ACD915312C9DF31700B66661 /* ProfileViewController.swift in Sources */,
 				ACD915012C9DEA1E00B66661 /* ViewController.swift in Sources */,
 				ACD9152F2C9DF29800B66661 /* AccountViewController.swift in Sources */,
@@ -538,10 +565,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = WorKit/WorKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = H472URY6LP;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WorKit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -557,6 +589,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.HighRiskNoReward.WorKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "WorKit-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -568,10 +602,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = WorKit/WorKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = H472URY6LP;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WorKit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -587,6 +626,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.HighRiskNoReward.WorKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "WorKit-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

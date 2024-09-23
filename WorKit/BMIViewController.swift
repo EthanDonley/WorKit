@@ -7,8 +7,14 @@
 
 import UIKit
 
+protocol BMIViewControllerDelegate: AnyObject {
+    func bmiViewControllerDidFinish(_ controller: BMIViewController)
+}
+
 class BMIViewController: UIViewController {
     
+    weak var delegate: BMIViewControllerDelegate?  // Delegate to pass data back
+
     let weightTextField = UITextField()
     let feetTextField = UITextField()
     let inchesTextField = UITextField()
@@ -19,7 +25,7 @@ class BMIViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.systemBackground
         title = "BMI Calculator"
         
         // Add UI elements for the BMI calculator
@@ -28,40 +34,35 @@ class BMIViewController: UIViewController {
     
     func setupUI() {
         // Configure Weight TextField
-        weightTextField.placeholder = "Enter your weight (lbs)"
-        weightTextField.borderStyle = .roundedRect
-        weightTextField.keyboardType = .decimalPad
-        weightTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(weightTextField)
+        configureTextField(weightTextField, placeholder: "Enter your weight (lbs)")
         
         // Configure Feet TextField
-        feetTextField.placeholder = "Enter your height - feet"
-        feetTextField.borderStyle = .roundedRect
-        feetTextField.keyboardType = .decimalPad
-        feetTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(feetTextField)
+        configureTextField(feetTextField, placeholder: "Enter your height - feet")
         
         // Configure Inches TextField
-        inchesTextField.placeholder = "Enter your height - inches"
-        inchesTextField.borderStyle = .roundedRect
-        inchesTextField.keyboardType = .decimalPad
-        inchesTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(inchesTextField)
+        configureTextField(inchesTextField, placeholder: "Enter your height - inches")
         
         // Configure Calculate Button
         calculateButton.setTitle("Calculate BMI", for: .normal)
+        calculateButton.backgroundColor = UIColor.systemBlue
+        calculateButton.setTitleColor(.white, for: .normal)
+        calculateButton.layer.cornerRadius = 10
         calculateButton.addTarget(self, action: #selector(calculateBMI), for: .touchUpInside)
         calculateButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(calculateButton)
         
         // Configure Result Label
         resultLabel.textAlignment = .center
+        resultLabel.font = UIFont.boldSystemFont(ofSize: 18)
         resultLabel.numberOfLines = 0
         resultLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(resultLabel)
 
         // Configure Save Button
         saveButton.setTitle("Save BMI", for: .normal)
+        saveButton.backgroundColor = UIColor.systemGreen
+        saveButton.setTitleColor(.white, for: .normal)
+        saveButton.layer.cornerRadius = 10
         saveButton.isHidden = true
         saveButton.addTarget(self, action: #selector(saveBMI), for: .touchUpInside)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
@@ -69,28 +70,41 @@ class BMIViewController: UIViewController {
         
         // Set up Constraints
         NSLayoutConstraint.activate([
-            weightTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            weightTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             weightTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            weightTextField.widthAnchor.constraint(equalToConstant: 200),
+            weightTextField.widthAnchor.constraint(equalToConstant: 250),
             
             feetTextField.topAnchor.constraint(equalTo: weightTextField.bottomAnchor, constant: 20),
             feetTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            feetTextField.widthAnchor.constraint(equalToConstant: 200),
+            feetTextField.widthAnchor.constraint(equalToConstant: 250),
             
             inchesTextField.topAnchor.constraint(equalTo: feetTextField.bottomAnchor, constant: 20),
             inchesTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            inchesTextField.widthAnchor.constraint(equalToConstant: 200),
+            inchesTextField.widthAnchor.constraint(equalToConstant: 250),
             
-            calculateButton.topAnchor.constraint(equalTo: inchesTextField.bottomAnchor, constant: 20),
+            calculateButton.topAnchor.constraint(equalTo: inchesTextField.bottomAnchor, constant: 30),
             calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            calculateButton.widthAnchor.constraint(equalToConstant: 200),
+            calculateButton.heightAnchor.constraint(equalToConstant: 50),
             
-            resultLabel.topAnchor.constraint(equalTo: calculateButton.bottomAnchor, constant: 20),
+            resultLabel.topAnchor.constraint(equalTo: calculateButton.bottomAnchor, constant: 30),
             resultLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             resultLabel.widthAnchor.constraint(equalToConstant: 300),
             
-            saveButton.topAnchor.constraint(equalTo: resultLabel.bottomAnchor, constant: 20),
-            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            saveButton.topAnchor.constraint(equalTo: resultLabel.bottomAnchor, constant: 30),
+            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            saveButton.widthAnchor.constraint(equalToConstant: 200),
+            saveButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    // Helper function to configure text fields
+    func configureTextField(_ textField: UITextField, placeholder: String) {
+        textField.placeholder = placeholder
+        textField.borderStyle = .roundedRect
+        textField.keyboardType = .decimalPad
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(textField)
     }
     
     @objc func calculateBMI() {
@@ -113,25 +127,19 @@ class BMIViewController: UIViewController {
         guard let bmiText = resultLabel.text, !bmiText.isEmpty else {
             return
         }
-        
+
         // Extract BMI value from the label
         let bmiValue = bmiText.replacingOccurrences(of: "Your BMI is: ", with: "")
-        
+
         // Save BMI to UserDefaults (or use Firebase if preferred)
         UserDefaults.standard.set(bmiValue, forKey: "userBMI")
-        
-        // Dismiss the modal and navigate to HomeViewController after saving BMI
-        dismiss(animated: true) {
-            // Get the current active scene
-            if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-                if let window = scene.windows.first(where: { $0.isKeyWindow }) {
-                    let homeVC = HomeViewController()
-                    let navController = UINavigationController(rootViewController: homeVC)
-                    navController.modalPresentationStyle = .fullScreen
-                    window.rootViewController = navController
-                    window.makeKeyAndVisible()
-                }
-            }
-        }
+
+        // Notify delegate that the BMI calculation is complete
+        delegate?.bmiViewControllerDidFinish(self)
+
+        // Dismiss the modal pop-up window
+        dismiss(animated: true, completion: nil)
     }
+
 }
+

@@ -8,13 +8,13 @@
 import UIKit
 import FirebaseAuth
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, BMIViewControllerDelegate {
 
     let emailTextField = UITextField()
     let passwordTextField = UITextField()
     let signupButton = UIButton()
     let loginButton = UIButton()
-    let forgotPasswordButton = UIButton()  // New Forgot Password button
+    let forgotPasswordButton = UIButton()  // Forgot Password button
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +22,22 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .white
         title = "Login"
 
-        // Set up UI elements
-        setupUI()
+        // Check if the user is already logged in
+        if let currentUser = Auth.auth().currentUser {
+            // Reload user data to ensure email verification status is up-to-date
+            currentUser.reload { error in
+                if currentUser.isEmailVerified {
+                    // Show BMI Calculator or go to home
+                    self.showBMIAfterLogin()
+                } else {
+                    // Prompt to verify email if not verified
+                    self.showError(message: "Please verify your email before logging in.")
+                }
+            }
+        } else {
+            // Set up UI elements if not logged in
+            setupUI()
+        }
     }
 
     func setupUI() {
@@ -108,12 +122,42 @@ class LoginViewController: UIViewController {
                 return
             }
 
-            // Navigate to the HomeViewController after successful login
-            let homeVC = HomeViewController()
-            let navController = UINavigationController(rootViewController: homeVC)
-            navController.modalPresentationStyle = .fullScreen
-            self.present(navController, animated: true, completion: nil)
+            guard let currentUser = Auth.auth().currentUser else { return }
+
+            // Check if the user has verified their email after logging in
+            currentUser.reload { error in
+                if currentUser.isEmailVerified {
+                    // Show BMI Calculator after successful login and verification
+                    self.showBMIAfterLogin()
+                } else {
+                    self.showError(message: "Please verify your email before logging in.")
+                    // Optionally sign them out if their email is not verified
+                    try? Auth.auth().signOut()
+                }
+            }
         }
+    }
+
+    // Implement showBMIAfterLogin()
+    func showBMIAfterLogin() {
+        // Check if BMI data exists
+        if UserDefaults.standard.object(forKey: "userBMI") != nil {
+            // BMI data exists, go to home
+            goToHome()
+        } else {
+            // BMI data doesn't exist, present BMIViewController
+            let bmiVC = BMIViewController()
+            bmiVC.modalPresentationStyle = .formSheet
+            bmiVC.delegate = self  // Set self as delegate
+            present(bmiVC, animated: true, completion: nil)
+        }
+    }
+
+    // Navigate to HomeViewController
+    func goToHome() {
+        let tabBarController = MainTabBarController()
+        tabBarController.modalPresentationStyle = .fullScreen
+        self.present(tabBarController, animated: true, completion: nil)
     }
 
     // Forgot Password
@@ -160,4 +204,12 @@ class LoginViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
+
+    // Delegate method to handle BMIViewController completion
+    func bmiViewControllerDidFinish(_ controller: BMIViewController) {
+        controller.dismiss(animated: true) {
+            self.goToHome()
+        }
+    }
 }
+
