@@ -14,6 +14,9 @@ build/
 Pods/
 Podfile.lock
 
+# OpenCV
+opencv2.framework/
+
 # Firebase configuration files
 GoogleService-Info.plist
 
