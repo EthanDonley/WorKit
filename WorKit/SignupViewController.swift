@@ -25,7 +25,10 @@ class SignupViewController: UIViewController {
 
         view.backgroundColor = .white
         title = "Sign Up"
-
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+                view.addGestureRecognizer(tapGesture)
+                
         // Set up UI elements
         setupUI()
     }
@@ -239,5 +242,9 @@ class SignupViewController: UIViewController {
         let alert = UIAlertController(title: "Success", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
+    }
+    
+    @objc func dismissKeyboard() {
+            view.endEditing(true)
     }
 }

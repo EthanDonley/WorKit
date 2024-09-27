@@ -28,6 +28,9 @@ class BMIViewController: UIViewController {
         view.backgroundColor = UIColor.systemBackground
         title = "BMI Calculator"
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+                view.addGestureRecognizer(tapGesture)
+        
         // Add UI elements for the BMI calculator
         setupUI()
     }
@@ -139,6 +142,10 @@ class BMIViewController: UIViewController {
 
         // Dismiss the modal pop-up window
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func dismissKeyboard() {
+            view.endEditing(true)
     }
 
 }

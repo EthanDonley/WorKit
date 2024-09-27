@@ -20,6 +20,9 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .white
         title = "Home"
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+                view.addGestureRecognizer(tapGesture)
+        
         // Set up UI elements
         setupUI()
     }
@@ -71,4 +74,8 @@ class HomeViewController: UIViewController {
         // Code to start a workout goes here
         print("Start workout tapped")
     }
+    
+    @objc func dismissKeyboard() {
+            view.endEditing(true)
+        }
 }

@@ -21,7 +21,9 @@ class LoginViewController: UIViewController, BMIViewControllerDelegate {
 
         view.backgroundColor = .white
         title = "Login"
-
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+                view.addGestureRecognizer(tapGesture)
         // Check if the user is already logged in
         if let currentUser = Auth.auth().currentUser {
             // Reload user data to ensure email verification status is up-to-date
@@ -210,6 +212,10 @@ class LoginViewController: UIViewController, BMIViewControllerDelegate {
         controller.dismiss(animated: true) {
             self.goToHome()
         }
+    }
+    
+    @objc func dismissKeyboard() {
+            view.endEditing(true)
     }
 }
 
