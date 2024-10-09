@@ -7,6 +7,7 @@ target 'WorKit' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+
 end
 
 post_install do |installer|

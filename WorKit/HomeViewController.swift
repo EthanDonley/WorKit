@@ -7,11 +7,18 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let welcomeLabel = UILabel()
     let startWorkoutButton = UIButton()
     let recentWorkoutsLabel = UILabel()
+    
+    let startCameraButton: UIButton = {
+            let button = UIButton(type: .system)
+            button.setTitle("Start Camera", for: .normal)
+            button.addTarget(self, action: #selector(startCameraTapped), for: .touchUpInside)
+            return button
+        }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +28,7 @@ class HomeViewController: UIViewController {
         title = "Home"
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-                view.addGestureRecognizer(tapGesture)
+        view.addGestureRecognizer(tapGesture)
         
         // Set up UI elements
         setupUI()
@@ -68,14 +75,114 @@ class HomeViewController: UIViewController {
             recentWorkoutsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             recentWorkoutsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
+        
+        // Add an "Upload Image" button
+        let uploadImageButton = UIButton()
+        uploadImageButton.setTitle("Upload Image", for: .normal)
+        uploadImageButton.backgroundColor = .systemBlue
+        uploadImageButton.layer.cornerRadius = 10
+        uploadImageButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        uploadImageButton.addTarget(self, action: #selector(uploadImage), for: .touchUpInside)
+        uploadImageButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(uploadImageButton)
+        
+        NSLayoutConstraint.activate([
+            uploadImageButton.topAnchor.constraint(equalTo: recentWorkoutsLabel.bottomAnchor, constant: 40),
+            uploadImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            uploadImageButton.widthAnchor.constraint(equalToConstant: 200),
+            uploadImageButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
+    @objc func uploadImage() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    // UIImagePickerController Delegate methods
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            // Dismiss the picker
+            dismiss(animated: true) {
+                // Call AI analysis function with the selected image
+                self.performAIAnalysis(image: image)
+            }
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func startWorkout() {
-        // Code to start a workout goes here
         print("Start workout tapped")
     }
     
     @objc func dismissKeyboard() {
-            view.endEditing(true)
+        view.endEditing(true)
+    }
+
+    func performAIAnalysis(image: UIImage) {
+        // Convert UIImage to Data or URL (upload it to a server or use the local file)
+        guard image.jpegData(compressionQuality: 0.8) != nil else {
+            print("Failed to convert image to data")
+            return
         }
+        
+        // Call someOAIstuff for AI analysis
+        Task {
+            // Assuming `someOAIstuff` accepts a URL and a prompt
+            let imageUrl = ["http://example.com/image.jpg"] // Replace with your own image URL or proper reference
+            let prompt = "Analyze this image"
+            
+            await someOAIstuff(url: imageUrl, prompt: prompt)
+            
+            // Show the results in a pop-up
+            DispatchQueue.main.async {
+                self.showAIResult(image: image, result: "Sample AI analysis result")
+            }
+        }
+        
+
+    }
+    
+    // Function to display the AI analysis result in a pop-up
+    func showAIResult(image: UIImage, result: String) {
+        // Create an alert
+        let alertController = UIAlertController(title: "AI Analysis", message: result, preferredStyle: .alert)
+        
+        // Create a UIImageView for displaying the image
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
+        imageView.image = image
+        imageView.contentMode = .scaleAspectFit
+        
+        // Add the UIImageView to the alertController
+        alertController.view.addSubview(imageView)
+        
+        // Adjust the position of the imageView in the pop-up
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: 250),
+            imageView.heightAnchor.constraint(equalToConstant: 250),
+            imageView.centerXAnchor.constraint(equalTo: alertController.view.centerXAnchor),
+            imageView.topAnchor.constraint(equalTo: alertController.view.topAnchor, constant: 60)
+        ])
+        
+        // Add an "OK" button to dismiss the alert
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            alertController.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(okAction)
+        
+        // Present the alert
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc func startCameraTapped() {
+            // Trigger the camera and start pose tracking
+            OpenCVWrapper.startCameraAndTrackPose()
+    }
+
 }

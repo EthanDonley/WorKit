@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AC3C78242CA72EE600819A36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD915052C9DEA2000B66661 /* Assets.xcassets */; };
+		AC3C78262CB2FF7700819A36 /* AIIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3C78252CB2FF7700819A36 /* AIIntegration.swift */; };
+		AC3C782E2CB30D0F00819A36 /* SwiftOpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = AC3C782D2CB30D0F00819A36 /* SwiftOpenAI */; };
 		ACD914FD2C9DEA1E00B66661 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD914FC2C9DEA1E00B66661 /* AppDelegate.swift */; };
 		ACD914FF2C9DEA1E00B66661 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD914FE2C9DEA1E00B66661 /* SceneDelegate.swift */; };
 		ACD915012C9DEA1E00B66661 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD915002C9DEA1E00B66661 /* ViewController.swift */; };
@@ -47,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC3C78252CB2FF7700819A36 /* AIIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIIntegration.swift; sourceTree = "<group>"; };
 		ACD914F92C9DEA1E00B66661 /* WorKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD914FC2C9DEA1E00B66661 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACD914FE2C9DEA1E00B66661 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC3C782E2CB30D0F00819A36 /* SwiftOpenAI in Frameworks */,
 				ACD9154E2CA0C92000B66661 /* AssetsLibrary.framework in Frameworks */,
 				ACD915482CA0C8E100B66661 /* opencv2.framework in Frameworks */,
 				D02BEA0A4DB179736D32859F /* Pods_WorKit.framework in Frameworks */,
@@ -165,6 +169,7 @@
 				ACD915342C9DF43500B66661 /* LoginViewController.swift */,
 				ACD9153E2C9E0D9B00B66661 /* SignupViewController.swift */,
 				ACD915562CA0E83C00B66661 /* MainTabBarController.swift */,
+				AC3C78252CB2FF7700819A36 /* AIIntegration.swift */,
 			);
 			path = WorKit;
 			sourceTree = "<group>";
@@ -215,6 +220,9 @@
 			dependencies = (
 			);
 			name = WorKit;
+			packageProductDependencies = (
+				AC3C782D2CB30D0F00819A36 /* SwiftOpenAI */,
+			);
 			productName = WorKit;
 			productReference = ACD914F92C9DEA1E00B66661 /* WorKit.app */;
 			productType = "com.apple.product-type.application";
@@ -290,6 +298,7 @@
 			mainGroup = ACD914F02C9DEA1E00B66661;
 			packageReferences = (
 				ACD915362C9DFA3700B66661 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				AC3C782C2CB3089900819A36 /* XCRemoteSwiftPackageReference "SwiftOpenAI" */,
 			);
 			productRefGroup = ACD914FA2C9DEA1E00B66661 /* Products */;
 			projectDirPath = "";
@@ -376,6 +385,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC3C78262CB2FF7700819A36 /* AIIntegration.swift in Sources */,
 				ACD915542CA0C9CC00B66661 /* OpenCVWrapper.mm in Sources */,
 				ACD9153F2C9E0D9B00B66661 /* SignupViewController.swift in Sources */,
 				ACD915572CA0E83C00B66661 /* MainTabBarController.swift in Sources */,
@@ -754,6 +764,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		AC3C782C2CB3089900819A36 /* XCRemoteSwiftPackageReference "SwiftOpenAI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jamesrochabrun/SwiftOpenAI";
+			requirement = {
+				kind = exactVersion;
+				version = 3.8.1;
+			};
+		};
 		ACD915362C9DFA3700B66661 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -763,6 +781,14 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AC3C782D2CB30D0F00819A36 /* SwiftOpenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AC3C782C2CB3089900819A36 /* XCRemoteSwiftPackageReference "SwiftOpenAI" */;
+			productName = SwiftOpenAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ACD914F12C9DEA1E00B66661 /* Project object */;
 }
