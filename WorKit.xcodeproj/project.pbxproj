@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC2E7F1E2CB90A1900688EBA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2E7F1D2CB90A1900688EBA /* CameraViewController.swift */; };
 		7BE443BB2CB8D965006B5BA7 /* QuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE443BA2CB8D965006B5BA7 /* QuestionnaireViewController.swift */; };
 		AC3C78242CA72EE600819A36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD915052C9DEA2000B66661 /* Assets.xcassets */; };
 		ACD914FD2C9DEA1E00B66661 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD914FC2C9DEA1E00B66661 /* AppDelegate.swift */; };
@@ -23,11 +24,13 @@
 		ACD9153F2C9E0D9B00B66661 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD9153E2C9E0D9B00B66661 /* SignupViewController.swift */; };
 		ACD915442C9F3B0300B66661 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACD915432C9F3B0300B66661 /* GoogleService-Info.plist */; };
 		ACD915452C9F3BD800B66661 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACD915022C9DEA1E00B66661 /* Main.storyboard */; };
-		ACD915482CA0C8E100B66661 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD915472CA0C8E100B66661 /* opencv2.framework */; };
 		ACD9154E2CA0C92000B66661 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD9154D2CA0C92000B66661 /* AssetsLibrary.framework */; };
 		ACD915542CA0C9CC00B66661 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = ACD915532CA0C9CC00B66661 /* OpenCVWrapper.mm */; };
 		ACD915572CA0E83C00B66661 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD915562CA0E83C00B66661 /* MainTabBarController.swift */; };
-		D02BEA0A4DB179736D32859F /* Pods_WorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4607BE9CB616082719F70A9 /* Pods_WorKit.framework */; };
+		ACF5B2882CB914A000FA781F /* AIIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3C78252CB2FF7700819A36 /* AIIntegration.swift */; };
+		ACF5B28A2CB91C4000FA781F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD915472CA0C8E100B66661 /* opencv2.framework */; };
+		ACF5B28D2CB99E5E00FA781F /* SwiftOpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = ACF5B28C2CB99E5E00FA781F /* SwiftOpenAI */; settings = {ATTRIBUTES = (Required, ); }; };
+		F0509AF2D2CD22ADF603E3F0 /* Pods_WorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87056FBFAD6CF80AAEF8F155 /* Pods_WorKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		12B8B0FB9076E869A015F0AD /* Pods-WorKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorKit.debug.xcconfig"; path = "Target Support Files/Pods-WorKit/Pods-WorKit.debug.xcconfig"; sourceTree = "<group>"; };
+		87056FBFAD6CF80AAEF8F155 /* Pods_WorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AD7A455DC8EA64AEBCA29A1 /* Pods-WorKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorKit.release.xcconfig"; path = "Target Support Files/Pods-WorKit/Pods-WorKit.release.xcconfig"; sourceTree = "<group>"; };
+		AC2E7F1D2CB90A1900688EBA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		AC3C78252CB2FF7700819A36 /* AIIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIIntegration.swift; sourceTree = "<group>"; };
 		7BE443BA2CB8D965006B5BA7 /* QuestionnaireViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionnaireViewController.swift; path = ../../../Desktop/QuestionnaireViewController.swift; sourceTree = "<group>"; };
 		ACD914F92C9DEA1E00B66661 /* WorKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD914FC2C9DEA1E00B66661 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,9 +87,6 @@
 		ACD915532CA0C9CC00B66661 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
 		ACD915552CA0CA8000B66661 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		ACD915562CA0E83C00B66661 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
-		BF62DFB1F5A9330F7B63F738 /* Pods-WorKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorKit.debug.xcconfig"; path = "Target Support Files/Pods-WorKit/Pods-WorKit.debug.xcconfig"; sourceTree = "<group>"; };
-		D4607BE9CB616082719F70A9 /* Pods_WorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA3FF84694F92021E8735DA3 /* Pods-WorKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorKit.release.xcconfig"; path = "Target Support Files/Pods-WorKit/Pods-WorKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,9 +94,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACF5B28D2CB99E5E00FA781F /* SwiftOpenAI in Frameworks */,
 				ACD9154E2CA0C92000B66661 /* AssetsLibrary.framework in Frameworks */,
-				ACD915482CA0C8E100B66661 /* opencv2.framework in Frameworks */,
-				D02BEA0A4DB179736D32859F /* Pods_WorKit.framework in Frameworks */,
+				F0509AF2D2CD22ADF603E3F0 /* Pods_WorKit.framework in Frameworks */,
+				ACF5B28A2CB91C4000FA781F /* opencv2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,8 +121,8 @@
 		7DE6B16FE9305A457B0F1E8A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BF62DFB1F5A9330F7B63F738 /* Pods-WorKit.debug.xcconfig */,
-				FA3FF84694F92021E8735DA3 /* Pods-WorKit.release.xcconfig */,
+				12B8B0FB9076E869A015F0AD /* Pods-WorKit.debug.xcconfig */,
+				9AD7A455DC8EA64AEBCA29A1 /* Pods-WorKit.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -168,6 +174,8 @@
 				ACD915342C9DF43500B66661 /* LoginViewController.swift */,
 				ACD9153E2C9E0D9B00B66661 /* SignupViewController.swift */,
 				ACD915562CA0E83C00B66661 /* MainTabBarController.swift */,
+				AC3C78252CB2FF7700819A36 /* AIIntegration.swift */,
+				AC2E7F1D2CB90A1900688EBA /* CameraViewController.swift */,
 			);
 			path = WorKit;
 			sourceTree = "<group>";
@@ -195,7 +203,7 @@
 				ACD9154D2CA0C92000B66661 /* AssetsLibrary.framework */,
 				ACD9154B2CA0C91A00B66661 /* CoreMedia.framework */,
 				ACD915492CA0C90F00B66661 /* CoreGraphics.framework */,
-				D4607BE9CB616082719F70A9 /* Pods_WorKit.framework */,
+				87056FBFAD6CF80AAEF8F155 /* Pods_WorKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -207,17 +215,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ACD915232C9DEA2000B66661 /* Build configuration list for PBXNativeTarget "WorKit" */;
 			buildPhases = (
-				3DCCFAE752ECD4376B12E9FB /* [CP] Check Pods Manifest.lock */,
+				7C4089D9C6C350225553D363 /* [CP] Check Pods Manifest.lock */,
 				ACD914F52C9DEA1E00B66661 /* Sources */,
 				ACD914F62C9DEA1E00B66661 /* Frameworks */,
 				ACD914F72C9DEA1E00B66661 /* Resources */,
-				86017258BE19F9D771911A5C /* [CP] Embed Pods Frameworks */,
+				75AE22D5C629BF385EB6866A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = WorKit;
+			packageProductDependencies = (
+				ACF5B28C2CB99E5E00FA781F /* SwiftOpenAI */,
+			);
 			productName = WorKit;
 			productReference = ACD914F92C9DEA1E00B66661 /* WorKit.app */;
 			productType = "com.apple.product-type.application";
@@ -293,6 +304,7 @@
 			mainGroup = ACD914F02C9DEA1E00B66661;
 			packageReferences = (
 				ACD915362C9DFA3700B66661 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				ACF5B28B2CB99E5E00FA781F /* XCRemoteSwiftPackageReference "SwiftOpenAI" */,
 			);
 			productRefGroup = ACD914FA2C9DEA1E00B66661 /* Products */;
 			projectDirPath = "";
@@ -333,7 +345,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3DCCFAE752ECD4376B12E9FB /* [CP] Check Pods Manifest.lock */ = {
+		75AE22D5C629BF385EB6866A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WorKit/Pods-WorKit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WorKit/Pods-WorKit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WorKit/Pods-WorKit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7C4089D9C6C350225553D363 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -355,23 +384,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		86017258BE19F9D771911A5C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WorKit/Pods-WorKit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WorKit/Pods-WorKit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WorKit/Pods-WorKit-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -382,6 +394,8 @@
 				ACD915542CA0C9CC00B66661 /* OpenCVWrapper.mm in Sources */,
 				ACD9153F2C9E0D9B00B66661 /* SignupViewController.swift in Sources */,
 				ACD915572CA0E83C00B66661 /* MainTabBarController.swift in Sources */,
+				ACF5B2882CB914A000FA781F /* AIIntegration.swift in Sources */,
+				AC2E7F1E2CB90A1900688EBA /* CameraViewController.swift in Sources */,
 				ACD915312C9DF31700B66661 /* ProfileViewController.swift in Sources */,
 				ACD915012C9DEA1E00B66661 /* ViewController.swift in Sources */,
 				ACD9152F2C9DF29800B66661 /* AccountViewController.swift in Sources */,
@@ -567,7 +581,7 @@
 		};
 		ACD915242C9DEA2000B66661 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BF62DFB1F5A9330F7B63F738 /* Pods-WorKit.debug.xcconfig */;
+			baseConfigurationReference = 12B8B0FB9076E869A015F0AD /* Pods-WorKit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -605,7 +619,7 @@
 		};
 		ACD915252C9DEA2000B66661 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA3FF84694F92021E8735DA3 /* Pods-WorKit.release.xcconfig */;
+			baseConfigurationReference = 9AD7A455DC8EA64AEBCA29A1 /* Pods-WorKit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -766,7 +780,23 @@
 				minimumVersion = 11.2.0;
 			};
 		};
+		ACF5B28B2CB99E5E00FA781F /* XCRemoteSwiftPackageReference "SwiftOpenAI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jamesrochabrun/SwiftOpenAI";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ACF5B28C2CB99E5E00FA781F /* SwiftOpenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACF5B28B2CB99E5E00FA781F /* XCRemoteSwiftPackageReference "SwiftOpenAI" */;
+			productName = SwiftOpenAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ACD914F12C9DEA1E00B66661 /* Project object */;
 }
