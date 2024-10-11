@@ -5,81 +5,51 @@
 //  Created by Ethan Donley on 9/22/24.
 //
 
+// OpenCVWrapper.mm
 #import "OpenCVWrapper.h"
 #import <opencv2/opencv.hpp>
-#import <UIKit/UIKit.h>  // Required for UIImage handling
+#import <opencv2/imgcodecs/ios.h>
+#import <UIKit/UIKit.h>
 
 @implementation OpenCVWrapper
 
 + (NSString *)getOpenCVVersion {
-    // Get OpenCV version
     std::string version = cv::getVersionString();
-    
-    // Convert std::string to NSString and return
     return [NSString stringWithUTF8String:version.c_str()];
 }
 
-
-+ (UIImage * _Nullable)startCameraAndTrackPose {
-    // Open the camera
-    cv::VideoCapture capture(0);  // 0 is the default camera (front-facing)
-    if (!capture.isOpened()) {
-        NSLog(@"Error: Could not open camera.");
-        return nil;  // Return nil if the camera fails to open
-    }
-    
-    NSLog(@"Camera opened successfully.");
-
-    cv::Mat frame;
-    bool frameCaptured = capture.read(frame);  // Capture a single frame
-    
-    if (!frameCaptured) {
-        NSLog(@"Error: Could not capture a frame.");
-        return nil;
-    }
-
-    if (frame.empty()) {
-        NSLog(@"Error: Captured frame is empty.");
-        return nil;
-    }
-    
-    NSLog(@"Captured frame successfully.");
-
-    // Convert the frame to UIImage and return it
-    UIImage *image = [OpenCVWrapper matToUIImage:frame];
-    capture.release();  // Release the camera after capturing the frame
-    return image;
+// Convert CVPixelBufferRef to UIImage for Swift
++ (UIImage *)imageFromPixelBuffer:(CVPixelBufferRef)pixelBuffer {
+    cv::Mat mat = [OpenCVWrapper cvMatFromPixelBuffer:pixelBuffer];
+    return [OpenCVWrapper UIImageFromCVMat:mat];
 }
 
-+ (UIImage *)matToUIImage:(const cv::Mat &)mat {
-    NSData *data = [NSData dataWithBytes:mat.data length:mat.elemSize() * mat.total()];
-    CGColorSpaceRef colorSpace;
+// Convert CVPixelBufferRef to cv::Mat
++ (cv::Mat)cvMatFromPixelBuffer:(CVPixelBufferRef)pixelBuffer {
+    CVPixelBufferLockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
+    
+    int width = (int)CVPixelBufferGetWidth(pixelBuffer);
+    int height = (int)CVPixelBufferGetHeight(pixelBuffer);
+    void *baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer);
 
-    if (mat.elemSize() == 1) {
-        colorSpace = CGColorSpaceCreateDeviceGray();
+    OSType pixelFormat = CVPixelBufferGetPixelFormatType(pixelBuffer);
+    cv::Mat mat;
+
+    if (pixelFormat == kCVPixelFormatType_32BGRA) {
+        mat = cv::Mat(height, width, CV_8UC4, baseAddress, CVPixelBufferGetBytesPerRow(pixelBuffer));
+    } else if (pixelFormat == kCVPixelFormatType_OneComponent8) {
+        mat = cv::Mat(height, width, CV_8UC1, baseAddress, CVPixelBufferGetBytesPerRow(pixelBuffer));
     } else {
-        colorSpace = CGColorSpaceCreateDeviceRGB();
+        NSLog(@"Unsupported pixel format: %u", (unsigned int)pixelFormat);
     }
 
-    CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
-    CGImageRef imageRef = CGImageCreate(mat.cols,                               // Width
-                                        mat.rows,                               // Height
-                                        8,                                      // Bits per component
-                                        8 * mat.elemSize(),                     // Bits per pixel
-                                        mat.step[0],                            // Bytes per row
-                                        colorSpace,                             // Color space
-                                        kCGImageAlphaNoneSkipLast | kCGBitmapByteOrderDefault, // Bitmap info flags
-                                        provider,                               // CGDataProviderRef
-                                        NULL,                                   // Decode
-                                        false,                                  // Should interpolate
-                                        kCGRenderingIntentDefault);             // Intent
+    CVPixelBufferUnlockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
+    return mat;
+}
 
-    UIImage *image = [UIImage imageWithCGImage:imageRef];
-    CGImageRelease(imageRef);
-    CGDataProviderRelease(provider);
-    CGColorSpaceRelease(colorSpace);
-
-    return image;
+// Convert cv::Mat to UIImage
++ (UIImage *)UIImageFromCVMat:(const cv::Mat&)mat {
+    return MatToUIImage(mat);
 }
 
 @end

@@ -16,11 +16,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     let recentWorkoutsLabel = UILabel()
     
     let startCameraButton: UIButton = {
-            let button = UIButton(type: .system)
-            button.setTitle("Start Camera", for: .normal)
-            button.addTarget(self, action: #selector(startCameraTapped), for: .touchUpInside)
-            return button
-        }()
+        let button = UIButton(type: .system)
+        button.setTitle("Start Camera", for: .normal)
+        button.addTarget(self, action: #selector(startCameraTapped), for: .touchUpInside)
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,10 +144,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
         imageView.image = image
         imageView.contentMode = .scaleAspectFit
-        
-        // Disable (hide) the image view temporarily
-        imageView.isHidden = true
-        
+        imageView.isHidden = true  // Optionally hide the image if needed
+
         alertController.view.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -165,28 +163,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         present(alertController, animated: true, completion: nil)
     }
 
-
-
+    // Here we update the method to present CameraViewController
     @objc func startCameraTapped() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            // Call the OpenCV function on a background thread
-            if let trackedImage = OpenCVWrapper.startCameraAndTrackPose() {
-                DispatchQueue.main.async {
-                    // Display the tracked image in a UIImageView
-                    let imageView = UIImageView(image: trackedImage)
-                    imageView.contentMode = .scaleAspectFit
-                    imageView.frame = self.view.frame
-                    self.view.addSubview(imageView)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    print("Failed to track pose or capture image.")
-                }
-            }
-        }
+        // Instantiate CameraViewController
+        let cameraViewController = CameraViewController()
+        
+        // Present CameraViewController
+        present(cameraViewController, animated: true, completion: nil)
     }
-
-
-
-
 }
