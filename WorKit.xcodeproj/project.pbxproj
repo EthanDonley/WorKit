@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		AC2E7F1A2CB8E6F400688EBA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2E7F192CB8E6F400688EBA /* CameraViewController.swift */; };
-		AC2E7F1C2CB8EF6900688EBA /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AC2E7F1B2CB8EF6900688EBA /* Secrets.xcconfig */; };
 		AC3C78242CA72EE600819A36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD915052C9DEA2000B66661 /* Assets.xcassets */; };
 		AC3C78262CB2FF7700819A36 /* AIIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3C78252CB2FF7700819A36 /* AIIntegration.swift */; };
 		AC3C782E2CB30D0F00819A36 /* SwiftOpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = AC3C782D2CB30D0F00819A36 /* SwiftOpenAI */; };
@@ -52,7 +51,6 @@
 
 /* Begin PBXFileReference section */
 		AC2E7F192CB8E6F400688EBA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		AC2E7F1B2CB8EF6900688EBA /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		AC3C78252CB2FF7700819A36 /* AIIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIIntegration.swift; sourceTree = "<group>"; };
 		ACD914F92C9DEA1E00B66661 /* WorKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD914FC2C9DEA1E00B66661 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -158,7 +156,6 @@
 		ACD914FB2C9DEA1E00B66661 /* WorKit */ = {
 			isa = PBXGroup;
 			children = (
-				AC2E7F1B2CB8EF6900688EBA /* Secrets.xcconfig */,
 				ACD915462C9F48FC00B66661 /* WorKit.entitlements */,
 				ACD9152C2C9DF1E900B66661 /* BMIViewController.swift */,
 				ACD914FC2C9DEA1E00B66661 /* AppDelegate.swift */,
@@ -322,7 +319,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC2E7F1C2CB8EF6900688EBA /* Secrets.xcconfig in Resources */,
 				ACD915442C9F3B0300B66661 /* GoogleService-Info.plist in Resources */,
 				AC3C78242CA72EE600819A36 /* Assets.xcassets in Resources */,
 				ACD915452C9F3BD800B66661 /* Main.storyboard in Resources */,
@@ -462,7 +458,6 @@
 /* Begin XCBuildConfiguration section */
 		ACD915212C9DEA2000B66661 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC2E7F1B2CB8EF6900688EBA /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -526,7 +521,6 @@
 		};
 		ACD915222C9DEA2000B66661 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC2E7F1B2CB8EF6900688EBA /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
