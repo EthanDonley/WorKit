@@ -24,5 +24,11 @@
 		<key>UIImageName</key>
 		<string>logo</string>
 	</dict>
+    <key>NSCameraUsageDescription</key>
+    <string>We need access to your camera for pose tracking.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>We need access to your microphone for audio recording.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to your photo library for uploading images.</string>
 </dict>
 </plist>

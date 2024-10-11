@@ -7,13 +7,13 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    let aiIntegration = AIIntegration()
     
     let welcomeLabel = UILabel()
     let startWorkoutButton = UIButton()
     let recentWorkoutsLabel = UILabel()
-<<<<<<< HEAD
-=======
     
     let startCameraButton: UIButton = {
         let button = UIButton(type: .system)
@@ -21,31 +21,35 @@ class HomeViewController: UIViewController {
         button.addTarget(self, action: #selector(startCameraTapped), for: .touchUpInside)
         return button
     }()
->>>>>>> 9811d77 (AI/OpenCV setup (With API sensitive info stored on Firebase))
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Set the background color
         view.backgroundColor = .white
         title = "Home"
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-                view.addGestureRecognizer(tapGesture)
+        view.addSubview(startCameraButton)
+        startCameraButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            startCameraButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            startCameraButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            startCameraButton.widthAnchor.constraint(equalToConstant: 200),
+            startCameraButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
         
-        // Set up UI elements
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        
         setupUI()
     }
 
     func setupUI() {
-        // Welcome label setup
         welcomeLabel.text = "Welcome to WorKit!"
         welcomeLabel.textAlignment = .center
         welcomeLabel.font = UIFont.boldSystemFont(ofSize: 30)
         welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(welcomeLabel)
         
-        // Start workout button setup
         startWorkoutButton.setTitle("Start Workout", for: .normal)
         startWorkoutButton.backgroundColor = .systemGreen
         startWorkoutButton.layer.cornerRadius = 10
@@ -54,42 +58,84 @@ class HomeViewController: UIViewController {
         startWorkoutButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(startWorkoutButton)
         
-        // Recent workouts label setup
         recentWorkoutsLabel.text = "Recent Workouts"
         recentWorkoutsLabel.font = UIFont.systemFont(ofSize: 20)
         recentWorkoutsLabel.textAlignment = .left
         recentWorkoutsLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(recentWorkoutsLabel)
         
-        // Add layout constraints
         NSLayoutConstraint.activate([
-            // Welcome label constraints
             welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            // Start workout button constraints
             startWorkoutButton.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 40),
             startWorkoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             startWorkoutButton.widthAnchor.constraint(equalToConstant: 200),
             startWorkoutButton.heightAnchor.constraint(equalToConstant: 50),
-            
-            // Recent workouts label constraints
             recentWorkoutsLabel.topAnchor.constraint(equalTo: startWorkoutButton.bottomAnchor, constant: 40),
             recentWorkoutsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             recentWorkoutsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
+        
+        let uploadImageButton = UIButton()
+        uploadImageButton.setTitle("Upload Image", for: .normal)
+        uploadImageButton.backgroundColor = .systemBlue
+        uploadImageButton.layer.cornerRadius = 10
+        uploadImageButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        uploadImageButton.addTarget(self, action: #selector(uploadImage), for: .touchUpInside)
+        uploadImageButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(uploadImageButton)
+        
+        NSLayoutConstraint.activate([
+            uploadImageButton.topAnchor.constraint(equalTo: recentWorkoutsLabel.bottomAnchor, constant: 40),
+            uploadImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            uploadImageButton.widthAnchor.constraint(equalToConstant: 200),
+            uploadImageButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
+    @objc func uploadImage() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            dismiss(animated: true) {
+                self.performAIAnalysis(image: image)
+            }
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+
     @objc func startWorkout() {
-        // Code to start a workout goes here
         print("Start workout tapped")
     }
-    
+
     @objc func dismissKeyboard() {
-            view.endEditing(true)
+        view.endEditing(true)
+    }
+
+    func performAIAnalysis(image: UIImage) {
+        aiIntegration.uploadImageToFirebase(image) { [weak self] imageUrl in
+            guard let imageUrl = imageUrl else {
+                print("Failed to upload image or get URL")
+                return
+            }
+            
+            Task {
+                let prompt = "Analyze this image"
+                let analysisResult = await self?.aiIntegration.someOAIstuff(url: [imageUrl], prompt: prompt)
+                
+                DispatchQueue.main.async {
+                    self?.showAIResult(image: image, result: analysisResult ?? "No analysis result")
+                }
+            }
         }
-<<<<<<< HEAD
-=======
     }
 
     func showAIResult(image: UIImage, result: String) {
@@ -125,5 +171,4 @@ class HomeViewController: UIViewController {
         // Present CameraViewController
         present(cameraViewController, animated: true, completion: nil)
     }
->>>>>>> 9811d77 (AI/OpenCV setup (With API sensitive info stored on Firebase))
 }

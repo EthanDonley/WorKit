@@ -7,13 +7,9 @@ target 'WorKit' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
-<<<<<<< HEAD
-=======
   pod 'Firebase/Storage'
   pod 'FirebaseRemoteConfig'
   pod 'FirebaseAnalytics' 
-
->>>>>>> 9811d77 (AI/OpenCV setup (With API sensitive info stored on Firebase))
 end
 
 post_install do |installer|
