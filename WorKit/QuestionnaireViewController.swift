@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class QuestionnaireViewController: UIViewController {
 
@@ -165,14 +167,36 @@ class QuestionnaireViewController: UIViewController {
 
     @objc func submitAnswers() {
         // Retrieve answers from each segmented control
-        let answer1 = segmentedControl1.titleForSegment(at: segmentedControl1.selectedSegmentIndex)
-        let answer2 = segmentedControl2.titleForSegment(at: segmentedControl2.selectedSegmentIndex)
-        let answer3 = segmentedControl3.titleForSegment(at: segmentedControl3.selectedSegmentIndex)
-        let answer4 = segmentedControl4.titleForSegment(at: segmentedControl4.selectedSegmentIndex)
+        let answer1 = segmentedControl1.titleForSegment(at: segmentedControl1.selectedSegmentIndex) ?? ""
+        let answer2 = segmentedControl2.titleForSegment(at: segmentedControl2.selectedSegmentIndex) ?? ""
+        let answer3 = segmentedControl3.titleForSegment(at: segmentedControl3.selectedSegmentIndex) ?? ""
+        let answer4 = segmentedControl4.titleForSegment(at: segmentedControl4.selectedSegmentIndex) ?? ""
 
-        print("Answers submitted: \(answer1 ?? ""), \(answer2 ?? ""), \(answer3 ?? ""), \(answer4 ?? "")")
+        // Create a dictionary of the answers
+        let answers = [
+            "main_goal": answer1,
+            "exercise_frequency": answer2,
+            "workout_hours": answer3,
+            "access_to_weights": answer4,
+            "timestamp": FieldValue.serverTimestamp()
+        ] as [String : Any]
         
-        // Handle submission logic here
+        // Save the data to Firebase Firestore
+        let db = Firestore.firestore()
+
+        // (Optional) Get the user ID if using Firebase Authentication
+        let userId = Auth.auth().currentUser?.uid ?? "anonymous"
+        
+        // Save the questionnaire answers under a collection for users
+        db.collection("users").document(userId).collection("questionnaireResults").addDocument(data: answers) { error in
+            if let error = error {
+                print("Error saving questionnaire results: \(error)")
+            } else {
+                print("Questionnaire results successfully saved!")
+            }
+        }
+        
+        // Handle submission logic here, e.g., dismiss the view
         self.dismiss(animated: true, completion: nil)
     }
 }
