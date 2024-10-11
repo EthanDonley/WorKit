@@ -12,6 +12,16 @@ class HomeViewController: UIViewController {
     let welcomeLabel = UILabel()
     let startWorkoutButton = UIButton()
     let recentWorkoutsLabel = UILabel()
+<<<<<<< HEAD
+=======
+    
+    let startCameraButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Start Camera", for: .normal)
+        button.addTarget(self, action: #selector(startCameraTapped), for: .touchUpInside)
+        return button
+    }()
+>>>>>>> 9811d77 (AI/OpenCV setup (With API sensitive info stored on Firebase))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,4 +88,42 @@ class HomeViewController: UIViewController {
     @objc func dismissKeyboard() {
             view.endEditing(true)
         }
+<<<<<<< HEAD
+=======
+    }
+
+    func showAIResult(image: UIImage, result: String) {
+        let alertController = UIAlertController(title: "AI Analysis", message: result, preferredStyle: .alert)
+        
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
+        imageView.image = image
+        imageView.contentMode = .scaleAspectFit
+        imageView.isHidden = true  // Optionally hide the image if needed
+
+        alertController.view.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: 250),
+            imageView.heightAnchor.constraint(equalToConstant: 250),
+            imageView.centerXAnchor.constraint(equalTo: alertController.view.centerXAnchor),
+            imageView.topAnchor.constraint(equalTo: alertController.view.topAnchor, constant: 120)
+        ])
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            alertController.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(okAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+
+    // Here we update the method to present CameraViewController
+    @objc func startCameraTapped() {
+        // Instantiate CameraViewController
+        let cameraViewController = CameraViewController()
+        
+        // Present CameraViewController
+        present(cameraViewController, animated: true, completion: nil)
+    }
+>>>>>>> 9811d77 (AI/OpenCV setup (With API sensitive info stored on Firebase))
 }
