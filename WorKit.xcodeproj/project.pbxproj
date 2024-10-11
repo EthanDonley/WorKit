@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AC2E7F1E2CB90A1900688EBA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2E7F1D2CB90A1900688EBA /* CameraViewController.swift */; };
+		7BE443BB2CB8D965006B5BA7 /* QuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE443BA2CB8D965006B5BA7 /* QuestionnaireViewController.swift */; };
 		AC3C78242CA72EE600819A36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD915052C9DEA2000B66661 /* Assets.xcassets */; };
 		ACD914FD2C9DEA1E00B66661 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD914FC2C9DEA1E00B66661 /* AppDelegate.swift */; };
 		ACD914FF2C9DEA1E00B66661 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD914FE2C9DEA1E00B66661 /* SceneDelegate.swift */; };
@@ -55,6 +56,7 @@
 		9AD7A455DC8EA64AEBCA29A1 /* Pods-WorKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorKit.release.xcconfig"; path = "Target Support Files/Pods-WorKit/Pods-WorKit.release.xcconfig"; sourceTree = "<group>"; };
 		AC2E7F1D2CB90A1900688EBA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		AC3C78252CB2FF7700819A36 /* AIIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIIntegration.swift; sourceTree = "<group>"; };
+		7BE443BA2CB8D965006B5BA7 /* QuestionnaireViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionnaireViewController.swift; path = ../../../Desktop/QuestionnaireViewController.swift; sourceTree = "<group>"; };
 		ACD914F92C9DEA1E00B66661 /* WorKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD914FC2C9DEA1E00B66661 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACD914FE2C9DEA1E00B66661 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				ACD915022C9DEA1E00B66661 /* Main.storyboard */,
 				ACD915052C9DEA2000B66661 /* Assets.xcassets */,
 				ACD915072C9DEA2000B66661 /* LaunchScreen.storyboard */,
+				7BE443BA2CB8D965006B5BA7 /* QuestionnaireViewController.swift */,
 				ACD915302C9DF31700B66661 /* ProfileViewController.swift */,
 				ACD915322C9DF37800B66661 /* HomeViewController.swift */,
 				ACD915342C9DF43500B66661 /* LoginViewController.swift */,
@@ -396,6 +399,7 @@
 				ACD915312C9DF31700B66661 /* ProfileViewController.swift in Sources */,
 				ACD915012C9DEA1E00B66661 /* ViewController.swift in Sources */,
 				ACD9152F2C9DF29800B66661 /* AccountViewController.swift in Sources */,
+				7BE443BB2CB8D965006B5BA7 /* QuestionnaireViewController.swift in Sources */,
 				ACD9152D2C9DF1E900B66661 /* BMIViewController.swift in Sources */,
 				ACD915352C9DF43500B66661 /* LoginViewController.swift in Sources */,
 				ACD914FD2C9DEA1E00B66661 /* AppDelegate.swift in Sources */,
