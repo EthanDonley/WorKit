@@ -10,11 +10,12 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController, BMIViewControllerDelegate {
 
-    let emailTextField = UITextField()
-    let passwordTextField = UITextField()
-    let signupButton = UIButton()
-    let loginButton = UIButton()
-    let forgotPasswordButton = UIButton()  // Forgot Password button
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var signupButton: UIButton!
+    @IBOutlet weak var forgotPasswordButton: UIButton!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,34 +45,24 @@ class LoginViewController: UIViewController, BMIViewControllerDelegate {
 
     func setupUI() {
         // Email text field
-        emailTextField.placeholder = "Enter email"
-        emailTextField.borderStyle = .roundedRect
-        emailTextField.translatesAutoresizingMaskIntoConstraints = false
 
         // Password text field
-        passwordTextField.placeholder = "Enter password"
+        /*passwordTextField.borderStyle = .roundedRect
+        passwordTextField.translatesAutoresizingMaskIntoConstraints = false*/
         passwordTextField.isSecureTextEntry = true
-        passwordTextField.borderStyle = .roundedRect
-        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
 
         // Login button
-        loginButton.setTitle("Login", for: .normal)
+        /*loginButton.setTitle("Login", for: .normal)
         loginButton.backgroundColor = .systemBlue
-        loginButton.layer.cornerRadius = 10
+        loginButton.layer.cornerRadius = 10*/
         loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-
         // Sign up button
-        signupButton.setTitle("Sign Up", for: .normal)
-        signupButton.setTitleColor(.systemBlue, for: .normal)
+        /*signupButton.setTitle("Sign Up", for: .normal)
+        signupButton.setTitleColor(.systemBlue, for: .normal)*/
         signupButton.addTarget(self, action: #selector(goToSignup), for: .touchUpInside)
-        signupButton.translatesAutoresizingMaskIntoConstraints = false
 
         // Forgot password button
-        forgotPasswordButton.setTitle("Forgot Password?", for: .normal)
-        forgotPasswordButton.setTitleColor(.systemBlue, for: .normal)
         forgotPasswordButton.addTarget(self, action: #selector(forgotPassword), for: .touchUpInside)
-        forgotPasswordButton.translatesAutoresizingMaskIntoConstraints = false
 
         // Add elements to the view
         view.addSubview(emailTextField)
@@ -81,7 +72,7 @@ class LoginViewController: UIViewController, BMIViewControllerDelegate {
         view.addSubview(forgotPasswordButton)
 
         // Layout constraints
-        NSLayoutConstraint.activate([
+        /*NSLayoutConstraint.activate([
             emailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             emailTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
             emailTextField.widthAnchor.constraint(equalToConstant: 250),
@@ -100,7 +91,7 @@ class LoginViewController: UIViewController, BMIViewControllerDelegate {
 
             forgotPasswordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             forgotPasswordButton.topAnchor.constraint(equalTo: signupButton.bottomAnchor, constant: 20)
-        ])
+        ])*/
     }
 
     // Go to Signup ViewController
