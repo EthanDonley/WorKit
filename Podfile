@@ -1,4 +1,4 @@
-platform :ios, '13.0'
+platform :ios, '15.0'
 
 target 'WorKit' do
   use_frameworks!
@@ -13,6 +13,7 @@ target 'WorKit' do
   # Google ML Kit for Pose Detection
   pod 'GoogleMLKit/PoseDetection'
   pod 'GoogleMLKit/PoseDetectionAccurate'
+
 end
 
 post_install do |installer|

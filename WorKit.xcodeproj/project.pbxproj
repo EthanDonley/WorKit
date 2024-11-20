@@ -11,6 +11,10 @@
 		AC2E7F1E2CB90A1900688EBA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2E7F1D2CB90A1900688EBA /* CameraViewController.swift */; };
 		AC3C78242CA72EE600819A36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD915052C9DEA2000B66661 /* Assets.xcassets */; };
 		ACBFD2912CDE08120064B0D8 /* grpc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBFD2902CDE08120064B0D8 /* grpc.framework */; };
+		ACBFD2942CE9D8C90064B0D8 /* QuickPoseCamera in Frameworks */ = {isa = PBXBuildFile; productRef = ACBFD2932CE9D8C90064B0D8 /* QuickPoseCamera */; };
+		ACBFD2962CE9D8C90064B0D8 /* QuickPoseCore in Frameworks */ = {isa = PBXBuildFile; productRef = ACBFD2952CE9D8C90064B0D8 /* QuickPoseCore */; };
+		ACBFD2982CE9D8C90064B0D8 /* QuickPoseMP in Frameworks */ = {isa = PBXBuildFile; productRef = ACBFD2972CE9D8C90064B0D8 /* QuickPoseMP */; };
+		ACBFD2A02CE9D8C90064B0D8 /* QuickPoseSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = ACBFD29F2CE9D8C90064B0D8 /* QuickPoseSwiftUI */; };
 		ACD914FD2C9DEA1E00B66661 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD914FC2C9DEA1E00B66661 /* AppDelegate.swift */; };
 		ACD914FF2C9DEA1E00B66661 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD914FE2C9DEA1E00B66661 /* SceneDelegate.swift */; };
 		ACD915012C9DEA1E00B66661 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD915002C9DEA1E00B66661 /* ViewController.swift */; };
@@ -97,7 +101,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACBFD2912CDE08120064B0D8 /* grpc.framework in Frameworks */,
+				ACBFD2962CE9D8C90064B0D8 /* QuickPoseCore in Frameworks */,
 				ACF5B28D2CB99E5E00FA781F /* SwiftOpenAI in Frameworks */,
+				ACBFD2942CE9D8C90064B0D8 /* QuickPoseCamera in Frameworks */,
+				ACBFD2982CE9D8C90064B0D8 /* QuickPoseMP in Frameworks */,
+				ACBFD2A02CE9D8C90064B0D8 /* QuickPoseSwiftUI in Frameworks */,
 				ACD9154E2CA0C92000B66661 /* AssetsLibrary.framework in Frameworks */,
 				ACF5B28A2CB91C4000FA781F /* opencv2.framework in Frameworks */,
 				05D1BFE347893444656ABCBD /* Pods_WorKit.framework in Frameworks */,
@@ -233,6 +241,10 @@
 			name = WorKit;
 			packageProductDependencies = (
 				ACF5B28C2CB99E5E00FA781F /* SwiftOpenAI */,
+				ACBFD2932CE9D8C90064B0D8 /* QuickPoseCamera */,
+				ACBFD2952CE9D8C90064B0D8 /* QuickPoseCore */,
+				ACBFD2972CE9D8C90064B0D8 /* QuickPoseMP */,
+				ACBFD29F2CE9D8C90064B0D8 /* QuickPoseSwiftUI */,
 			);
 			productName = WorKit;
 			productReference = ACD914F92C9DEA1E00B66661 /* WorKit.app */;
@@ -310,6 +322,7 @@
 			packageReferences = (
 				ACD915362C9DFA3700B66661 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				ACF5B28B2CB99E5E00FA781F /* XCRemoteSwiftPackageReference "SwiftOpenAI" */,
+				ACBFD2922CE9D0C30064B0D8 /* XCRemoteSwiftPackageReference "quickpose-ios-sdk" */,
 			);
 			productRefGroup = ACD914FA2C9DEA1E00B66661 /* Products */;
 			projectDirPath = "";
@@ -794,6 +807,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		ACBFD2922CE9D0C30064B0D8 /* XCRemoteSwiftPackageReference "quickpose-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/quickpose/quickpose-ios-sdk.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		ACD915362C9DFA3700B66661 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -813,6 +834,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		ACBFD2932CE9D8C90064B0D8 /* QuickPoseCamera */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACBFD2922CE9D0C30064B0D8 /* XCRemoteSwiftPackageReference "quickpose-ios-sdk" */;
+			productName = QuickPoseCamera;
+		};
+		ACBFD2952CE9D8C90064B0D8 /* QuickPoseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACBFD2922CE9D0C30064B0D8 /* XCRemoteSwiftPackageReference "quickpose-ios-sdk" */;
+			productName = QuickPoseCore;
+		};
+		ACBFD2972CE9D8C90064B0D8 /* QuickPoseMP */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACBFD2922CE9D0C30064B0D8 /* XCRemoteSwiftPackageReference "quickpose-ios-sdk" */;
+			productName = QuickPoseMP;
+		};
+		ACBFD29F2CE9D8C90064B0D8 /* QuickPoseSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACBFD2922CE9D0C30064B0D8 /* XCRemoteSwiftPackageReference "quickpose-ios-sdk" */;
+			productName = QuickPoseSwiftUI;
+		};
 		ACF5B28C2CB99E5E00FA781F /* SwiftOpenAI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = ACF5B28B2CB99E5E00FA781F /* XCRemoteSwiftPackageReference "SwiftOpenAI" */;
