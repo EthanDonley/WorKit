@@ -15,6 +15,9 @@
 		ACBFD2962CE9D8C90064B0D8 /* QuickPoseCore in Frameworks */ = {isa = PBXBuildFile; productRef = ACBFD2952CE9D8C90064B0D8 /* QuickPoseCore */; };
 		ACBFD2982CE9D8C90064B0D8 /* QuickPoseMP in Frameworks */ = {isa = PBXBuildFile; productRef = ACBFD2972CE9D8C90064B0D8 /* QuickPoseMP */; };
 		ACBFD2A02CE9D8C90064B0D8 /* QuickPoseSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = ACBFD29F2CE9D8C90064B0D8 /* QuickPoseSwiftUI */; };
+		ACBFD2A22CEEB56C0064B0D8 /* CameraPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBFD2A12CEEB56C0064B0D8 /* CameraPermissionViewController.swift */; };
+		ACBFD2A82CEEC0460064B0D8 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = ACBFD2A72CEEC0450064B0D8 /* main.py */; };
+		ACBFD2AA2CEEC0630064B0D8 /* MLIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBFD2A92CEEC0630064B0D8 /* MLIntegration.swift */; };
 		ACD914FD2C9DEA1E00B66661 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD914FC2C9DEA1E00B66661 /* AppDelegate.swift */; };
 		ACD914FF2C9DEA1E00B66661 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD914FE2C9DEA1E00B66661 /* SceneDelegate.swift */; };
 		ACD915012C9DEA1E00B66661 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD915002C9DEA1E00B66661 /* ViewController.swift */; };
@@ -62,6 +65,9 @@
 		AC3C78252CB2FF7700819A36 /* AIIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIIntegration.swift; sourceTree = "<group>"; };
 		AC7B9F894197C88519185887 /* Pods_WorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACBFD2902CDE08120064B0D8 /* grpc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = grpc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACBFD2A12CEEB56C0064B0D8 /* CameraPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionViewController.swift; sourceTree = "<group>"; };
+		ACBFD2A72CEEC0450064B0D8 /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
+		ACBFD2A92CEEC0630064B0D8 /* MLIntegration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLIntegration.swift; sourceTree = "<group>"; };
 		ACD914F92C9DEA1E00B66661 /* WorKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD914FC2C9DEA1E00B66661 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACD914FE2C9DEA1E00B66661 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				ACD915552CA0CA8000B66661 /* PrefixHeader.pch */,
+				ACBFD2A72CEEC0450064B0D8 /* main.py */,
 				ACD915502CA0C99A00B66661 /* OpenCVWrapper.h */,
 				ACD915532CA0C9CC00B66661 /* OpenCVWrapper.mm */,
 				ACD915432C9F3B0300B66661 /* GoogleService-Info.plist */,
@@ -184,8 +191,10 @@
 				ACD915322C9DF37800B66661 /* HomeViewController.swift */,
 				ACD915342C9DF43500B66661 /* LoginViewController.swift */,
 				ACD9153E2C9E0D9B00B66661 /* SignupViewController.swift */,
+				ACBFD2A92CEEC0630064B0D8 /* MLIntegration.swift */,
 				ACD915562CA0E83C00B66661 /* MainTabBarController.swift */,
 				AC3C78252CB2FF7700819A36 /* AIIntegration.swift */,
+				ACBFD2A12CEEB56C0064B0D8 /* CameraPermissionViewController.swift */,
 				AC2E7F1D2CB90A1900688EBA /* CameraViewController.swift */,
 			);
 			path = WorKit;
@@ -343,6 +352,7 @@
 				ACD915442C9F3B0300B66661 /* GoogleService-Info.plist in Resources */,
 				AC3C78242CA72EE600819A36 /* Assets.xcassets in Resources */,
 				ACD915452C9F3BD800B66661 /* Main.storyboard in Resources */,
+				ACBFD2A82CEEC0460064B0D8 /* main.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,11 +441,13 @@
 				ACD915572CA0E83C00B66661 /* MainTabBarController.swift in Sources */,
 				ACF5B2882CB914A000FA781F /* AIIntegration.swift in Sources */,
 				AC2E7F1E2CB90A1900688EBA /* CameraViewController.swift in Sources */,
+				ACBFD2A22CEEB56C0064B0D8 /* CameraPermissionViewController.swift in Sources */,
 				ACD915312C9DF31700B66661 /* ProfileViewController.swift in Sources */,
 				ACF5B28F2CB9C58B00FA781F /* QuestionnaireViewController.swift in Sources */,
 				ACD915012C9DEA1E00B66661 /* ViewController.swift in Sources */,
 				ACD9152F2C9DF29800B66661 /* AccountViewController.swift in Sources */,
 				ACD9152D2C9DF1E900B66661 /* BMIViewController.swift in Sources */,
+				ACBFD2AA2CEEC0630064B0D8 /* MLIntegration.swift in Sources */,
 				ACD915352C9DF43500B66661 /* LoginViewController.swift in Sources */,
 				ACD914FD2C9DEA1E00B66661 /* AppDelegate.swift in Sources */,
 				ACD915332C9DF37800B66661 /* HomeViewController.swift in Sources */,
