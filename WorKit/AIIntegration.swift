@@ -58,36 +58,45 @@ class AIIntegration {
 
     // AI Analysis Function
     func someOAIstuff(url: [String], prompt: String) async -> String? {
-        // Debug: Ensure the base URL is correct
-        print("OpenAI API Base URL: \(openai_api_base)")  // Ensure this is "https://api.openai.com/v1"
-
+        // Debug: Ensure the base URL and API key are correct
+        print("OpenAI API Base URL: \(openai_api_base)")  // Should be "https://api.openai.com/v1"
+        print("OpenAI API Key: \(openai_api_key)")  // Should not print in production for security reasons
+        print("Model Name: \(model_name)")
+        
         let service = OpenAIServiceFactory.service(apiKey: .apiKey(openai_api_key), baseURL: openai_api_base)
-
+        
         guard let imageURL = URL(string: url[0]) else {
-            print("Invalid image URL")
+            print("Invalid image URL: \(url[0])")
             return nil
         }
-
+        
+        print("Image URL: \(imageURL.absoluteString)")
+        
         let messageContent: [ChatCompletionParameters.Message.ContentType.MessageContent] = [
-            .text(prompt),
-            .imageUrl(.init(url: imageURL))
-        ]
-
+                    .text(prompt),
+                    .imageUrl(.init(url: imageURL, detail: "high"))
+                ]   
+        
         let parameters = ChatCompletionParameters(
             messages: [.init(role: .user, content: .contentArray(messageContent))],
             model: .custom(model_name)
         )
-
+        
+        print("Parameters being sent to OpenAI: \(parameters)")
+        
         do {
             let chatStream = try await service.startStreamedChat(parameters: parameters)
-
+            
             var fullResponse = ""
             for try await chunk in chatStream {
                 if let content = chunk.choices.first?.delta.content {
                     fullResponse += content
+                    print("Received chunk: \(content)") // Print each response chunk for debugging
                 }
             }
-
+            
+            print("Full AI Response: \(fullResponse)")
+            
             return fullResponse.isEmpty ? "No valid response from AI" : fullResponse
 
         } catch {

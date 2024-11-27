@@ -1,15 +1,19 @@
-platform :ios, '13.0'
+platform :ios, '15.0'
 
 target 'WorKit' do
   use_frameworks!
-  
-  # Firebase Authentication
-  pod 'Firebase/Core'
+
+  # Firebase services with specific versions compatible with ML Kit
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
   pod 'FirebaseRemoteConfig'
-  pod 'FirebaseAnalytics' 
+  pod 'FirebaseAnalytics'
+
+  # Google ML Kit for Pose Detection
+  pod 'GoogleMLKit/PoseDetection'
+  pod 'GoogleMLKit/PoseDetectionAccurate'
+
 end
 
 post_install do |installer|

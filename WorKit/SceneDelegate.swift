@@ -11,7 +11,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
@@ -33,7 +33,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // Function to show the login screen
     func showLoginScreen() {
-        // Load LoginViewController from storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         let navigationController = UINavigationController(rootViewController: loginViewController)
@@ -44,7 +43,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // Function to show the main app (UITabBarController)
     func showMainApp() {
-        // Load view controllers from storyboard or initialize them programmatically if not using storyboard
         let tabBarController = UITabBarController()
 
         // Home view controller

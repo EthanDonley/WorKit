@@ -1,9 +1,3 @@
-//
-//  OpenCVWrapper.mm
-//  WorKit
-//
-//  Created by Ethan Donley on 9/22/24.
-//
 #import "OpenCVWrapper.h"
 #import <opencv2/opencv.hpp>
 #import <opencv2/imgcodecs/ios.h>
@@ -18,36 +12,55 @@
 
 // Convert CVPixelBufferRef to UIImage for Swift
 + (UIImage *)imageFromPixelBuffer:(CVPixelBufferRef)pixelBuffer {
-    cv::Mat mat = [OpenCVWrapper cvMatFromPixelBuffer:pixelBuffer];
-    return [OpenCVWrapper UIImageFromCVMat:mat];
+    // Attempt CIImage conversion
+    CIImage *ciImage = [CIImage imageWithCVPixelBuffer:pixelBuffer];
+    if (!ciImage) {
+        NSLog(@"Error: CIImage creation from CVPixelBuffer failed.");
+        return nil;
+    }
+
+    // Render the CIImage to a CGImage
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef cgImage = [context createCGImage:ciImage fromRect:ciImage.extent];
+    
+    if (!cgImage) {
+        NSLog(@"Error: CGImage creation from CIImage failed.");
+        return nil;
+    }
+
+    // Create UIImage from CGImage and release CGImage reference
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+
+    if (!image.CGImage) {
+        NSLog(@"Error: UIImage creation from CGImage has a NULL CGImage");
+    }
+
+    return image;
 }
 
-// Convert CVPixelBufferRef to cv::Mat
-+ (cv::Mat)cvMatFromPixelBuffer:(CVPixelBufferRef)pixelBuffer {
+// Fallback conversion: Using CGContext for UIImage creation
++ (UIImage *)fallbackImageFromPixelBuffer:(CVPixelBufferRef)pixelBuffer {
     CVPixelBufferLockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
     
     int width = (int)CVPixelBufferGetWidth(pixelBuffer);
     int height = (int)CVPixelBufferGetHeight(pixelBuffer);
     void *baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer);
+    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer);
 
-    OSType pixelFormat = CVPixelBufferGetPixelFormatType(pixelBuffer);
-    cv::Mat mat;
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
+    
+    CGImageRef cgImage = CGBitmapContextCreateImage(context);
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
 
-    if (pixelFormat == kCVPixelFormatType_32BGRA) {
-        mat = cv::Mat(height, width, CV_8UC4, baseAddress, CVPixelBufferGetBytesPerRow(pixelBuffer));
-    } else if (pixelFormat == kCVPixelFormatType_OneComponent8) {
-        mat = cv::Mat(height, width, CV_8UC1, baseAddress, CVPixelBufferGetBytesPerRow(pixelBuffer));
-    } else {
-        NSLog(@"Unsupported pixel format: %u", (unsigned int)pixelFormat);
-    }
-
+    // Cleanup
+    CGColorSpaceRelease(colorSpace);
+    CGContextRelease(context);
+    CGImageRelease(cgImage);
     CVPixelBufferUnlockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
-    return mat;
-}
 
-// Convert cv::Mat to UIImage
-+ (UIImage *)UIImageFromCVMat:(const cv::Mat&)mat {
-    return MatToUIImage(mat);
+    return image;
 }
 
 @end
