@@ -40,6 +40,7 @@
 		ACF5B28A2CB91C4000FA781F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD915472CA0C8E100B66661 /* opencv2.framework */; };
 		ACF5B28D2CB99E5E00FA781F /* SwiftOpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = ACF5B28C2CB99E5E00FA781F /* SwiftOpenAI */; settings = {ATTRIBUTES = (Required, ); }; };
 		ACF5B28F2CB9C58B00FA781F /* QuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF5B28E2CB9C58A00FA781F /* QuestionnaireViewController.swift */; };
+		F0509AF2D2CD22ADF603E3F0 /* Pods_WorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87056FBFAD6CF80AAEF8F155 /* Pods_WorKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */

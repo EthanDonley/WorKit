@@ -35,6 +35,27 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         view.backgroundColor = .white
         title = "Home"
         
+        view.addSubview(startCameraButton)
+        view.addSubview(pickImageForAIButton)
+        
+        startCameraButton.translatesAutoresizingMaskIntoConstraints = false
+        pickImageForAIButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            startCameraButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            startCameraButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            startCameraButton.widthAnchor.constraint(equalToConstant: 200),
+            startCameraButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            pickImageForAIButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            pickImageForAIButton.topAnchor.constraint(equalTo: startCameraButton.bottomAnchor, constant: 20),
+            pickImageForAIButton.widthAnchor.constraint(equalToConstant: 200),
+            pickImageForAIButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        
         setupUI()
         addSubviewsAndConstraints()
     }
@@ -77,11 +98,17 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
+        questionnaireButton.translatesAutoresizingMaskIntoConstraints = false
+        questionnaireButton.addTarget(self, action: #selector(questionnaireTapped), for: .touchUpInside)
+        view.addSubview(questionnaireButton)
+        
+        NSLayoutConstraint.activate([
+            welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             questionnaireButton.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 40),
             questionnaireButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             questionnaireButton.widthAnchor.constraint(equalToConstant: 200),
             questionnaireButton.heightAnchor.constraint(equalToConstant: 50),
-            
             startWorkoutButton.topAnchor.constraint(equalTo: questionnaireButton.bottomAnchor, constant: 40),
             startWorkoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             startWorkoutButton.widthAnchor.constraint(equalToConstant: 200),
@@ -104,6 +131,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
 
     // MARK: - Button Actions
+            recentWorkoutsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+    }
+
     @objc func startWorkout() {
         print("Start workout tapped")
     }
@@ -117,6 +148,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         present(cameraViewController, animated: true)
     }
 
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
+    // Method for the "Pick Image for AI" button
     @objc func pickImageForAITapped() {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
@@ -163,6 +199,9 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
+        aiIntegration.uploadImageToFirebase(image) { [weak self] imageUrl in
+            guard let imageUrl = imageUrl else {
+                print("Failed to upload image or get URL")
                 return
             }
 
@@ -266,5 +305,15 @@ extension UIImage {
             let width = height * imageRatio
             return CGSize(width: width, height: height)
         }
+
+    @objc func startCameraTapped() {
+        let cameraViewController = CameraViewController()
+        present(cameraViewController, animated: true, completion: nil)
+    }
+
+    @objc func questionnaireTapped() {
+        print("Button was tapped!")
+        let questionnaireVC = QuestionnaireViewController()
+        self.present(questionnaireVC, animated: true, completion: nil)
     }
 }
