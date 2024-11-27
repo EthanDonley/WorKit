@@ -32,6 +32,9 @@ Carthage/Build/
 *.lock
 *~
 
+# Workit Firebase Admin config for backend
+workit-d3aee-firebase-adminsdk-o0jlh-fd824b8f55.json 
+
 # Ignore .DS_Store (common macOS file)
 .DS_Store
 

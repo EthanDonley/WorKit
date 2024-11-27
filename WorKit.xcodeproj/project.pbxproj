@@ -18,6 +18,7 @@
 		ACBFD2A22CEEB56C0064B0D8 /* CameraPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBFD2A12CEEB56C0064B0D8 /* CameraPermissionViewController.swift */; };
 		ACBFD2A82CEEC0460064B0D8 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = ACBFD2A72CEEC0450064B0D8 /* main.py */; };
 		ACBFD2AA2CEEC0630064B0D8 /* MLIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBFD2A92CEEC0630064B0D8 /* MLIntegration.swift */; };
+		ACBFD2AC2CF4340C0064B0D8 /* test_pose_api.py in Resources */ = {isa = PBXBuildFile; fileRef = ACBFD2AB2CF4340C0064B0D8 /* test_pose_api.py */; };
 		ACD914FD2C9DEA1E00B66661 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD914FC2C9DEA1E00B66661 /* AppDelegate.swift */; };
 		ACD914FF2C9DEA1E00B66661 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD914FE2C9DEA1E00B66661 /* SceneDelegate.swift */; };
 		ACD915012C9DEA1E00B66661 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD915002C9DEA1E00B66661 /* ViewController.swift */; };
@@ -68,6 +69,7 @@
 		ACBFD2A12CEEB56C0064B0D8 /* CameraPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionViewController.swift; sourceTree = "<group>"; };
 		ACBFD2A72CEEC0450064B0D8 /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
 		ACBFD2A92CEEC0630064B0D8 /* MLIntegration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLIntegration.swift; sourceTree = "<group>"; };
+		ACBFD2AB2CF4340C0064B0D8 /* test_pose_api.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = test_pose_api.py; sourceTree = "<group>"; };
 		ACD914F92C9DEA1E00B66661 /* WorKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD914FC2C9DEA1E00B66661 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACD914FE2C9DEA1E00B66661 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			children = (
 				ACD915552CA0CA8000B66661 /* PrefixHeader.pch */,
 				ACBFD2A72CEEC0450064B0D8 /* main.py */,
+				ACBFD2AB2CF4340C0064B0D8 /* test_pose_api.py */,
 				ACD915502CA0C99A00B66661 /* OpenCVWrapper.h */,
 				ACD915532CA0C9CC00B66661 /* OpenCVWrapper.mm */,
 				ACD915432C9F3B0300B66661 /* GoogleService-Info.plist */,
@@ -353,6 +356,7 @@
 				AC3C78242CA72EE600819A36 /* Assets.xcassets in Resources */,
 				ACD915452C9F3BD800B66661 /* Main.storyboard in Resources */,
 				ACBFD2A82CEEC0460064B0D8 /* main.py in Resources */,
+				ACBFD2AC2CF4340C0064B0D8 /* test_pose_api.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
