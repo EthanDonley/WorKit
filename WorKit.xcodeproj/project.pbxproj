@@ -10,6 +10,7 @@
 		05D1BFE347893444656ABCBD /* Pods_WorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7B9F894197C88519185887 /* Pods_WorKit.framework */; };
 		AC2E7F1E2CB90A1900688EBA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2E7F1D2CB90A1900688EBA /* CameraViewController.swift */; };
 		AC3C78242CA72EE600819A36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD915052C9DEA2000B66661 /* Assets.xcassets */; };
+		AC40D3E12CFACED5008561C7 /* SquatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC40D3E02CFACED5008561C7 /* SquatViewController.swift */; };
 		ACBFD2912CDE08120064B0D8 /* grpc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBFD2902CDE08120064B0D8 /* grpc.framework */; };
 		ACBFD2942CE9D8C90064B0D8 /* QuickPoseCamera in Frameworks */ = {isa = PBXBuildFile; productRef = ACBFD2932CE9D8C90064B0D8 /* QuickPoseCamera */; };
 		ACBFD2962CE9D8C90064B0D8 /* QuickPoseCore in Frameworks */ = {isa = PBXBuildFile; productRef = ACBFD2952CE9D8C90064B0D8 /* QuickPoseCore */; };
@@ -40,7 +41,6 @@
 		ACF5B28A2CB91C4000FA781F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD915472CA0C8E100B66661 /* opencv2.framework */; };
 		ACF5B28D2CB99E5E00FA781F /* SwiftOpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = ACF5B28C2CB99E5E00FA781F /* SwiftOpenAI */; settings = {ATTRIBUTES = (Required, ); }; };
 		ACF5B28F2CB9C58B00FA781F /* QuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF5B28E2CB9C58A00FA781F /* QuestionnaireViewController.swift */; };
-		F0509AF2D2CD22ADF603E3F0 /* Pods_WorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87056FBFAD6CF80AAEF8F155 /* Pods_WorKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +65,7 @@
 		9C375978682D91C8AD948227 /* Pods-WorKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorKit.debug.xcconfig"; path = "Target Support Files/Pods-WorKit/Pods-WorKit.debug.xcconfig"; sourceTree = "<group>"; };
 		AC2E7F1D2CB90A1900688EBA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		AC3C78252CB2FF7700819A36 /* AIIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIIntegration.swift; sourceTree = "<group>"; };
+		AC40D3E02CFACED5008561C7 /* SquatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquatViewController.swift; sourceTree = "<group>"; };
 		AC7B9F894197C88519185887 /* Pods_WorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACBFD2902CDE08120064B0D8 /* grpc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = grpc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACBFD2A12CEEB56C0064B0D8 /* CameraPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionViewController.swift; sourceTree = "<group>"; };
@@ -200,6 +201,7 @@
 				AC3C78252CB2FF7700819A36 /* AIIntegration.swift */,
 				ACBFD2A12CEEB56C0064B0D8 /* CameraPermissionViewController.swift */,
 				AC2E7F1D2CB90A1900688EBA /* CameraViewController.swift */,
+				AC40D3E02CFACED5008561C7 /* SquatViewController.swift */,
 			);
 			path = WorKit;
 			sourceTree = "<group>";
@@ -452,6 +454,7 @@
 				ACD915012C9DEA1E00B66661 /* ViewController.swift in Sources */,
 				ACD9152F2C9DF29800B66661 /* AccountViewController.swift in Sources */,
 				ACD9152D2C9DF1E900B66661 /* BMIViewController.swift in Sources */,
+				AC40D3E12CFACED5008561C7 /* SquatViewController.swift in Sources */,
 				ACBFD2AA2CEEC0630064B0D8 /* MLIntegration.swift in Sources */,
 				ACD915352C9DF43500B66661 /* LoginViewController.swift in Sources */,
 				ACD914FD2C9DEA1E00B66661 /* AppDelegate.swift in Sources */,

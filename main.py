@@ -63,20 +63,32 @@ class LandmarkSmoother:
 landmark_smoother = LandmarkSmoother(alpha=0.5)
 
 
+def is_squat(skeleton_points: List[Dict[str, float]]) -> bool:
+    hip = skeleton_points[23]  # Left hip
+    knee = skeleton_points[25]  # Left knee
+    ankle = skeleton_points[27]  # Left ankle
+
+    def calculate_angle(a, b, c):
+        ba = (a["x"] - b["x"], a["y"] - b["y"])
+        bc = (c["x"] - b["x"], c["y"] - b["y"])
+        dot_product = ba[0] * bc[0] + ba[1] * bc[1]
+        mag_a = (ba[0]**2 + ba[1]**2) ** 0.5
+        mag_b = (bc[0]**2 + bc[1]**2) ** 0.5
+        return np.arccos(dot_product / (mag_a * mag_b)) * (180 / np.pi)
+
+    angle = calculate_angle(hip, knee, ankle)
+    return 70 <= angle <= 100
+
+
 @app.post("/process-frame/")
 async def process_frame(file: UploadFile = File(...)):
     if not file.filename.endswith(("jpg", "jpeg", "png")):
         raise HTTPException(status_code=400, detail="Invalid file type. Please upload an image.")
 
     try:
-        # Read and decode the image
         file_data = await file.read()
         image = cv2.imdecode(np.frombuffer(file_data, np.uint8), cv2.IMREAD_COLOR)
-
-        # Convert image to RGB for MediaPipe
         rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-
-        # Process the image using MediaPipe Pose
         results = pose.process(rgb_image)
 
         skeleton_points: List[Dict[str, float]] = []
@@ -93,20 +105,13 @@ async def process_frame(file: UploadFile = File(...)):
         if not skeleton_points or len(skeleton_points) != 33:
             raise HTTPException(status_code=422, detail="Invalid or incomplete skeleton points.")
 
-        # Smooth the landmarks
         smoothed_skeleton = landmark_smoother.smooth(skeleton_points)
-
-        # Provide feedback if necessary
-        feedback = evaluate_exercise(smoothed_skeleton) if "evaluate_exercise" in globals() else []
+        feedback = "Good squat!" if is_squat(smoothed_skeleton) else "Adjust your form: Lower your hips for a squat."
 
         return {"skeleton": smoothed_skeleton, "feedback": feedback}
 
-    except cv2.error as e:
-        print(f"OpenCV Error: {e}")
-        raise HTTPException(status_code=500, detail="Image processing error.")
     except Exception as e:
-        print(f"General Error: {e}")
-        raise HTTPException(status_code=500, detail=f"Internal server error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 def evaluate_exercise(skeleton_points):
@@ -122,5 +127,6 @@ def evaluate_exercise(skeleton_points):
         feedback.append("No keypoints detected; ensure the exercise is performed in view of the camera.")
 
     return feedback
+
 
 
