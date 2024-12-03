@@ -11,6 +11,7 @@
 		AC2E7F1E2CB90A1900688EBA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2E7F1D2CB90A1900688EBA /* CameraViewController.swift */; };
 		AC3C78242CA72EE600819A36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD915052C9DEA2000B66661 /* Assets.xcassets */; };
 		AC40D3E12CFACED5008561C7 /* SquatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC40D3E02CFACED5008561C7 /* SquatViewController.swift */; };
+		AC40D3E32CFF9872008561C7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC40D3E22CFF9872008561C7 /* ContentView.swift */; };
 		ACBFD2912CDE08120064B0D8 /* grpc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBFD2902CDE08120064B0D8 /* grpc.framework */; };
 		ACBFD2942CE9D8C90064B0D8 /* QuickPoseCamera in Frameworks */ = {isa = PBXBuildFile; productRef = ACBFD2932CE9D8C90064B0D8 /* QuickPoseCamera */; };
 		ACBFD2962CE9D8C90064B0D8 /* QuickPoseCore in Frameworks */ = {isa = PBXBuildFile; productRef = ACBFD2952CE9D8C90064B0D8 /* QuickPoseCore */; };
@@ -66,6 +67,7 @@
 		AC2E7F1D2CB90A1900688EBA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		AC3C78252CB2FF7700819A36 /* AIIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIIntegration.swift; sourceTree = "<group>"; };
 		AC40D3E02CFACED5008561C7 /* SquatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquatViewController.swift; sourceTree = "<group>"; };
+		AC40D3E22CFF9872008561C7 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = SOURCE_ROOT; };
 		AC7B9F894197C88519185887 /* Pods_WorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACBFD2902CDE08120064B0D8 /* grpc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = grpc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACBFD2A12CEEB56C0064B0D8 /* CameraPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionViewController.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				ACD9152C2C9DF1E900B66661 /* BMIViewController.swift */,
 				ACD914FC2C9DEA1E00B66661 /* AppDelegate.swift */,
 				ACD9153C2C9E0AAA00B66661 /* Info.plist */,
+				AC40D3E22CFF9872008561C7 /* ContentView.swift */,
 				ACD914FE2C9DEA1E00B66661 /* SceneDelegate.swift */,
 				ACD9152E2C9DF29800B66661 /* AccountViewController.swift */,
 				ACD915002C9DEA1E00B66661 /* ViewController.swift */,
@@ -457,6 +460,7 @@
 				AC40D3E12CFACED5008561C7 /* SquatViewController.swift in Sources */,
 				ACBFD2AA2CEEC0630064B0D8 /* MLIntegration.swift in Sources */,
 				ACD915352C9DF43500B66661 /* LoginViewController.swift in Sources */,
+				AC40D3E32CFF9872008561C7 /* ContentView.swift in Sources */,
 				ACD914FD2C9DEA1E00B66661 /* AppDelegate.swift in Sources */,
 				ACD915332C9DF37800B66661 /* HomeViewController.swift in Sources */,
 				ACD914FF2C9DEA1E00B66661 /* SceneDelegate.swift in Sources */,

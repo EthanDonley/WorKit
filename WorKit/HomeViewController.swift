@@ -55,10 +55,11 @@ class HomeViewController: UIViewController {
     }
 
     func addSubviewsAndConstraints() {
-        [welcomeLabel, startWorkoutButton, recentWorkoutsLabel, questionnaireButton, doSquatsButton].forEach { view.addSubview($0) }
+        [welcomeLabel, startWorkoutButton, openCalendarButton, recentWorkoutsLabel, questionnaireButton, doSquatsButton].forEach { view.addSubview($0) }
         
         welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
         startWorkoutButton.translatesAutoresizingMaskIntoConstraints = false
+        openCalendarButton.translatesAutoresizingMaskIntoConstraints = false
         recentWorkoutsLabel.translatesAutoresizingMaskIntoConstraints = false
         questionnaireButton.translatesAutoresizingMaskIntoConstraints = false
         doSquatsButton.translatesAutoresizingMaskIntoConstraints = false
@@ -85,9 +86,31 @@ class HomeViewController: UIViewController {
             doSquatsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             doSquatsButton.widthAnchor.constraint(equalToConstant: 200),
             doSquatsButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            openCalendarButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            openCalendarButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            openCalendarButton.widthAnchor.constraint(equalTo: questionnaireButton.widthAnchor),
+            openCalendarButton.heightAnchor.constraint(equalTo: questionnaireButton.heightAnchor)
         ])
     }
 
+    let openCalendarButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Open Calendar", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .black
+        button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(openCalendarTapped), for: .touchUpInside)
+        return button
+    }()
+
+    
+    @objc func openCalendarTapped() {
+            let calendarView = ContentView()
+            present(calendarView, animated: true, completion: nil)
+        }
+    
+    
     // MARK: - Button Actions
     @objc func startWorkout() {
         print("Start workout tapped")
