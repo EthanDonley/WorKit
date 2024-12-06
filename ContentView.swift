@@ -11,6 +11,8 @@
 //
 import Foundation
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class ContentView: UIViewController {
     
@@ -20,16 +22,34 @@ class ContentView: UIViewController {
     private let weekStackView = UIStackView()
     private let dateLabel = UILabel()
     private let infoLabel = UILabel()
+    private let squatCountLabel = UILabel()
+    private let closeButton = UIButton(type: .system)
+    
+    private var firestoreRef: Firestore!
+    private var userId: String = Auth.auth().currentUser?.uid ?? "example_user_id"
+    private var workoutHistory: [String: Int] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setupFirestore()
         setupUI()
         updateDateLabel()
+        fetchWorkoutHistory()
         createDayButtons()
     }
     
+    private func setupFirestore() {
+        firestoreRef = Firestore.firestore()
+    }
+    
     private func setupUI() {
+        // Date Label
+        dateLabel.textAlignment = .center
+        dateLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(dateLabel)
+        
         // Info Box
         let infoBox = UIView()
         infoBox.layer.borderColor = UIColor.black.cgColor
@@ -37,97 +57,91 @@ class ContentView: UIViewController {
         infoBox.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(infoBox)
         
-        infoLabel.text = "Insert information here from Firebase..."
+        infoLabel.text = "Select a day to see workout details..."
         infoLabel.textAlignment = .center
         infoLabel.numberOfLines = 0
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         infoBox.addSubview(infoLabel)
         
-        NSLayoutConstraint.activate([
-            infoBox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            infoBox.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            infoBox.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            infoBox.heightAnchor.constraint(equalToConstant: 100),
-            
-            infoLabel.leadingAnchor.constraint(equalTo: infoBox.leadingAnchor, constant: 10),
-            infoLabel.trailingAnchor.constraint(equalTo: infoBox.trailingAnchor, constant: -10),
-            infoLabel.centerYAnchor.constraint(equalTo: infoBox.centerYAnchor)
-        ])
+        // Squat Count Label
+        squatCountLabel.text = "Squats: 0"
+        squatCountLabel.textAlignment = .center
+        squatCountLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        squatCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(squatCountLabel)
         
-        // Current Week Button
-        let currentWeekButton = UIButton(type: .system)
-        currentWeekButton.setTitle("Current Week", for: .normal)
-        currentWeekButton.setTitleColor(.white, for: .normal)
-        currentWeekButton.backgroundColor = .red
-        currentWeekButton.layer.cornerRadius = 4
-        currentWeekButton.layer.borderWidth = 2
-        currentWeekButton.layer.borderColor = UIColor.black.cgColor
-        currentWeekButton.translatesAutoresizingMaskIntoConstraints = false
-        currentWeekButton.addTarget(self, action: #selector(goToCurrentWeek), for: .touchUpInside)
-        view.addSubview(currentWeekButton)
-        
-        // Date Label and Navigation
-        let navStackView = UIStackView()
-        navStackView.axis = .horizontal
-        navStackView.distribution = .equalSpacing
-        navStackView.alignment = .center
-        navStackView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(navStackView)
-        
-        let prevButton = UIButton(type: .system)
-        prevButton.setTitle("◀︎", for: .normal)
-        prevButton.titleLabel?.font = UIFont.systemFont(ofSize: 24) // Larger font for bigger size
-        prevButton.addTarget(self, action: #selector(goToPreviousWeek), for: .touchUpInside)
-        
-        let nextButton = UIButton(type: .system)
-        nextButton.setTitle("▶︎", for: .normal)
-        nextButton.titleLabel?.font = UIFont.systemFont(ofSize: 24) // Larger font for bigger size
-        nextButton.addTarget(self, action: #selector(goToNextWeek), for: .touchUpInside)
-        
-        dateLabel.textAlignment = .center
-        
-        navStackView.addArrangedSubview(prevButton)
-        navStackView.addArrangedSubview(dateLabel)
-        navStackView.addArrangedSubview(nextButton)
-        
-        // Days Grid
+        // Week Stack View
         weekStackView.axis = .vertical
         weekStackView.alignment = .fill
         weekStackView.spacing = 10
         weekStackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(weekStackView)
         
+        // Close Button
+        closeButton.setTitle("✕", for: .normal)
+        closeButton.setTitleColor(.white, for: .normal)
+        closeButton.backgroundColor = .red
+        closeButton.layer.cornerRadius = 20
+        closeButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        closeButton.addTarget(self, action: #selector(dismissCalendar), for: .touchUpInside)
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(closeButton)
+        
+        // Layout Constraints
         NSLayoutConstraint.activate([
-            currentWeekButton.topAnchor.constraint(equalTo: infoBox.bottomAnchor, constant: 20),
-            currentWeekButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            currentWeekButton.widthAnchor.constraint(equalToConstant: 120),
-            currentWeekButton.heightAnchor.constraint(equalToConstant: 30),
+            dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            navStackView.topAnchor.constraint(equalTo: currentWeekButton.bottomAnchor, constant: 20),
-            navStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            navStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            infoBox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            infoBox.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            infoBox.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 20),
+            infoBox.heightAnchor.constraint(equalToConstant: 100),
             
-            weekStackView.topAnchor.constraint(equalTo: navStackView.bottomAnchor, constant: 20),
+            infoLabel.leadingAnchor.constraint(equalTo: infoBox.leadingAnchor, constant: 10),
+            infoLabel.trailingAnchor.constraint(equalTo: infoBox.trailingAnchor, constant: -10),
+            infoLabel.centerYAnchor.constraint(equalTo: infoBox.centerYAnchor),
+            
+            weekStackView.topAnchor.constraint(equalTo: infoBox.bottomAnchor, constant: 20),
             weekStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            weekStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            weekStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            squatCountLabel.topAnchor.constraint(equalTo: weekStackView.bottomAnchor, constant: 20),
+            squatCountLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            closeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            closeButton.widthAnchor.constraint(equalToConstant: 40),
+            closeButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
     private func updateDateLabel() {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM yyyy"
-        let monthYear = formatter.string(from: currentDate)
-        
-        let calendar = Calendar.current
-        let weekOfMonth = calendar.component(.weekOfMonth, from: currentDate)
-        
-        let ordinalFormatter = NumberFormatter()
-        ordinalFormatter.numberStyle = .ordinal
-        let weekOrdinal = ordinalFormatter.string(from: NSNumber(value: weekOfMonth)) ?? "\(weekOfMonth)"
-        
-        dateLabel.text = "\(weekOrdinal) week of \(monthYear)"
+        dateLabel.text = formatter.string(from: currentDate)
     }
     
+    private func fetchWorkoutHistory() {
+        let userDoc = firestoreRef.collection("users").document(userId)
+        let workoutsCollection = userDoc.collection("workouts")
+        
+        workoutsCollection.getDocuments { [weak self] snapshot, error in
+            guard let self = self, error == nil, let documents = snapshot?.documents else {
+                print("Error fetching workout history: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            
+            self.workoutHistory = documents.reduce(into: [String: Int]()) { result, document in
+                let date = document.documentID
+                let squatCount = document.data()["squatCount"] as? Int ?? 0
+                result[date] = squatCount
+            }
+            
+            print("Fetched workout history: \(self.workoutHistory)")
+            self.createDayButtons()
+        }
+    }
+
     private func createDayButtons() {
         weekStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
@@ -136,7 +150,8 @@ class ContentView: UIViewController {
         daysStack.distribution = .fillEqually
         daysStack.alignment = .center
         daysStack.spacing = 5
-        
+        weekStackView.addArrangedSubview(daysStack)
+
         for day in days {
             let dayLabel = UILabel()
             dayLabel.text = day
@@ -144,64 +159,56 @@ class ContentView: UIViewController {
             dayLabel.font = .boldSystemFont(ofSize: 12)
             daysStack.addArrangedSubview(dayLabel)
         }
-        weekStackView.addArrangedSubview(daysStack)
-        
+
         let datesStack = UIStackView()
         datesStack.axis = .horizontal
         datesStack.distribution = .fillEqually
         datesStack.alignment = .center
         datesStack.spacing = 5
-        
+        weekStackView.addArrangedSubview(datesStack)
+
         for date in currentWeekDates() {
             let button = UIButton(type: .system)
-            button.setTitle(date, for: .normal)
+            button.setTitle(String(date.suffix(2)), for: .normal)
             button.setTitleColor(selectedDay == date ? .black : .white, for: .normal)
             button.backgroundColor = selectedDay == date ? .yellow : .lightGray
             button.layer.cornerRadius = 15
             button.layer.borderWidth = selectedDay == date ? 2 : 0
             button.layer.borderColor = selectedDay == date ? UIColor.black.cgColor : UIColor.clear.cgColor
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.heightAnchor.constraint(equalToConstant: 30).isActive = true
-            button.widthAnchor.constraint(equalToConstant: 30).isActive = true
             button.addTarget(self, action: #selector(selectDay(_:)), for: .touchUpInside)
             datesStack.addArrangedSubview(button)
         }
-        weekStackView.addArrangedSubview(datesStack)
     }
-    
+
     private func currentWeekDates() -> [String] {
         var calendar = Calendar.current
         calendar.firstWeekday = 1
+        
         guard let startOfWeek = calendar.dateInterval(of: .weekOfMonth, for: currentDate)?.start else {
             return []
         }
-        return (0..<7).compactMap { dayOffset in
-            let date = calendar.date(byAdding: .day, value: dayOffset, to: startOfWeek)
-            let dayNumber = calendar.component(.day, from: date ?? Date())
-            return "\(dayNumber)"
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        return (0..<7).map { dayOffset in
+            let date = calendar.date(byAdding: .day, value: dayOffset, to: startOfWeek)!
+            return formatter.string(from: date)
         }
     }
     
-    @objc private func goToPreviousWeek() {
-        currentDate = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: currentDate) ?? currentDate
-        updateDateLabel()
-        createDayButtons()
-    }
-    
-    @objc private func goToNextWeek() {
-        currentDate = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: currentDate) ?? currentDate
-        updateDateLabel()
-        createDayButtons()
-    }
-    
-    @objc private func goToCurrentWeek() {
-        currentDate = Date()
-        updateDateLabel()
-        createDayButtons()
-    }
-    
     @objc private func selectDay(_ sender: UIButton) {
-        selectedDay = sender.title(for: .normal)
+        guard let displayDate = sender.title(for: .normal),
+              let selectedDate = currentWeekDates().first(where: { $0.hasSuffix(displayDate) }) else { return }
+        
+        selectedDay = selectedDate
+        let squatCount = workoutHistory[selectedDate] ?? 0
+        squatCountLabel.text = "Squats: \(squatCount)"
+        
         createDayButtons()
+    }
+    
+    @objc private func dismissCalendar() {
+        dismiss(animated: true, completion: nil)
     }
 }
