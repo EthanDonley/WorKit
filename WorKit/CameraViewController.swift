@@ -5,7 +5,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     let overlayView = UIView()
-    let serverURL = "https://obviously-generous-amoeba.ngrok-free.app/process-frame/"
+    let serverURL = "https://obviously-generous-amoeba.ngrok.app/process-frame/"
     let frameProcessingInterval: TimeInterval = 0.1
     var lastFrameTime: Date = .distantPast
 

@@ -11,7 +11,7 @@ import FirebaseFirestore
 class HomeViewController: UIViewController {
 
     // MARK: - Properties
-    private let serverURL = "https://obviously-generous-amoeba.ngrok-free.app" // Replace with your FastAPI server IP
+    private let serverURL = "https://obviously-generous-amoeba.ngrok.app" // Replace with your FastAPI server IP
 
     private let welcomeLabel = UILabel()
     private let questionnaireButton = UIButton()
