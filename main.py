@@ -5,6 +5,7 @@ import numpy as np
 import mediapipe as mp
 import os
 import uuid
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 from typing import List, Dict
 
 # Initialize FastAPI
